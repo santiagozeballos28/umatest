@@ -1,0 +1,61 @@
+https://github.com/RpL02/CursoLaravel5.1/tree/Vistas
+https://www.youtube.com/watch?v=B7Lqzr2G9QA --> preparar laravel en sublime
+http://getbootstrap.com/components/ --> componentes para html
+https://laravelcollective.com/docs/5.2/html  --> herramientas para el framework
+https://www.youtube.com/watch?v=sOyA84uhoCQ --> posicione de los box html
+table.table>(thead>th*3)>(tbody>td*3) para crear tablas
+
+Para crear controladores multiples
+
+php artisan make:controller helberController --resource
+php artisan make:controller gestorusuarioController
+
+
+levanta servidor
+
+php artisan serve
+
+para correr desde las rutas
+http://localhost:8000/
+
+para crear modelos
+php artisan make:model name --migration
+
+migrar base de datos
+php artisan migrate
+php artisan migrate:rollback
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/metisMenu.min.css" rel="stylesheet">
+    <link href="css/sb-admin-2.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/metisMenu.min.js"></script>
+    <script src="js/sb-admin-2.js"></script>
+    	<form action="">
+		<div class="form-group">
+			<label for="">Nombre</label>
+			<input type="text" class="form-control">
+		</div>
+		<div class="form-group">
+			<label for="">Correo</label>
+			<input type="text" class="form-control">
+		</div>
+		<div class="form-group">
+			<label for="">Contrasena</label>
+			<input type="password" class="form-control">
+		</div>
+		<button class="btn btn-primary">Registrar</button>
+	</form>
+
+
+
+
+	   <form action="{{ url('/todosloscursos') }}" method="post">
+                   <label for="nombre">Nombre:</label><input type="text" name="nombre" value="{{old('nombre')}}"></input>
+                   <br />
+                   <input type="submit" value="crear">
+            </form>
+
+

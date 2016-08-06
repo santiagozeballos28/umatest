@@ -1,0 +1,52 @@
+
+php artisan crud:generate permisos --fields="nombre_permiso#string#required" --route=yes --pk=id --view-path="admin" --namespace=Admin --route-group=admin
+
+
+php artisan crud:generate personas --fields="nombre#string#required, apellido paterno#string#required,  apellido materno#string#required, direccion#string#required, telefono#number#required, sexo#char#required" --route=yes --pk=id --view-path="admin" --namespace=Admin --route-group=admin
+
+
+php artisan crud:generate roles --fields="nombre_rol#string#required" --route=yes --pk=id --view-path="admin" --namespace=Admin --route-group=admin
+
+
+php artisan crud:generate Users --fields="name#string#required, apellido#string#required, direccion#string#required, telefono#number#required, sexo#char#required, email#email#required, password#password#required" --route=yes --pk=id --view-path="admin" --namespace=Admin --route-group=admin
+
+
+ $table->integer('rol_id')->unsigned();
+            $table->foreign('rol_id')->references('id')->on('roles')->onDelete('cascade');
+
+
+
+php artisan crud:generate docente --fields="name#string#required, apellido#string#required, direccion#string#required, telefono#number#required, genero#char#required, email#email#required, password#password#required" --route=yes --pk=id --view-path="admin" --namespace=Admin --route-group=admin
+
+
+php artisan crud:generate administrador --fields="name#string#required, apellido#string#required, direccion#string#required, telefono#number#required, genero#char#required, email#email#required, password#password#required" --route=yes --pk=id --view-path="admin" --namespace=Admin --route-group=admin
+
+
+php artisan crud:generate curso --fields="nombre#string#required, capacidad#integer#required, codigo#string#required" --route=yes --pk=id --view-path="admin" --namespace=Admin --route-group=admin
+
+
+php artisan crud:generate categoria --fields="nombre#string#required" --route=yes --pk=id --view-path="admin" --namespace=Admin --route-group=admin
+
+
+php artisan crud:generate curso_dicta --fields="grupo#string#required" --route=yes --pk=id --view-path="admin" --namespace=Admin --route-group=admin
+
+
+php artisan crud:generate curso_inscrito --fields="fecha#date#required" --route=yes --pk=id --view-path="admin" --namespace=Admin --route-group=admin
+
+php artisan crud:generate tarea --fields="nombre#string#required,descripcion#string,archivo#string,puntaje#number,fecha_limite#date" --route=yes --pk=id --view-path="gestor_examenes" --namespace=Admin --route-group=admin
+
+php artisan crud:generate notificacion --fields="id_user#integer#required, id_curso#integer#required, descripcion#string, visto#boolean#required" --route=yes --pk=id --view-path="gestor_examenes" --namespace=Admin --route-group=admin
+
+///para foros
+// tabla Foro
+
+php artisan crud:generate foro --fields="titulo#string,mensaje#string,archivo#string,fecha#date#required" --route=yes --pk=id --view-path="gestor_foro" --namespace=Admin --route-group=admin
+
+//tabla comenrario
+
+php artisan crud:generate comentario --fields="mensaje#string#required,fecha#date#required" --route=yes --pk=id --view-path="gestor_foro" --namespace=Admin --route-group=admin
+
+
+
+
+
