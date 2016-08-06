@@ -20,7 +20,7 @@ class examenController extends Controller
      *
      * @return void
      */
-    public function index($id_curso)
+    /*public function index($id_curso)
     {
         //$examen = examan::paginate(15);
 
@@ -47,9 +47,27 @@ class examenController extends Controller
 
         return view('gestor_examenes.examen.index_envio',compact('examen','id_curso', 'mensaje_puntaje'));
     }
-
+  */
    public function listar($id_curso)
     {
+        //controlamos docentes que envian examen nuevamente podran enviar si termina fecha fin de envio
+        $fecha_actual = date("Y-m-d H:i:s");
+        $examen_control = DB::table('examens')->where('id_cursos', $id_curso)->get();
+        $ids_exa_control=array();
+        $puntero=0;
+        foreach ($examen_control as $item) {
+         $ids_exa_control[$puntero]=$item->id;
+         $puntero++;
+        }
+        for ($i=0; $i < count($ids_exa_control) ; $i++) { 
+            $exa = DB::table('notas')->where('examen_id', $ids_exa_control[$i])->get();
+            $exa_fil = DB::table('notas')->where('examen_id', $ids_exa_control[$i])->where('fecha_fin','<',$fecha_actual)->get();
+
+            if(count($exa) == count($exa_fil)){
+             DB::table('examens')->where('id',$ids_exa_control[$i])->update(array('estado_examen'=>1));
+            }
+        }
+          
          $mensaje_puntaje="";
 
          $examen = DB::table('examens')->where('id_cursos', $id_curso)->get();
@@ -84,18 +102,25 @@ class examenController extends Controller
           'fecha_examen' => $fecha_actual,'puntaje_totalm' => $request->input('puntaje_totalm'),'id_cursos'=> $request->input('id_curso')]
          );
 
-           //store procedure
+               //store procedure
             $nombre_examen = $request->input('nombre_examen');
             $fecha_examen = $fecha_actual;
-            $id_curso=  $request->input('id_curso');
+            $puntaje_examen= $request->input('puntaje_totalm');
+            $nombre_curso = DB::table('cursos')->where('id',$request->input('id_curso'))->first();
+            $dato_nuevo=$nombre_examen.'#'.$fecha_examen.'#'.$nombre_curso->nombre.'#'.$puntaje_examen;//1
+            $dato_viejo="";//2
+            $nombre_maq = gethostname(); $ip = gethostbyname($nombre_maq);//3
+            $nombre_tabla="examenes";//4
+            $fecha_a = date("Y-m-d H:i:s");//5
+            $accion_a='create';//6
             $id_user=Auth::id();
             $usuario= DB::table('users')->where('id', $id_user)->first();
-            $nombre_usuario = $usuario->name.' '.$usuario->apellido;
-            $fecha_a = date("Y-m-d H:i:s");
-            $accion_a='create';
-            $id_bi=0;
+            $nombre_usuario = $usuario->name.' '.$usuario->apellido;//7
+            $id_bi=0;//8
 
-            DB::select('CALL PA_examen(?,?,?,?,?,?,?)', array($nombre_examen, $fecha_examen, $id_curso, $nombre_usuario, $fecha_a, $accion_a, $id_bi));
+            DB::select('CALL Bitacora(?,?,?,?,?,?,?,?)', array($dato_nuevo, $dato_viejo, $ip, 
+                $nombre_tabla, $fecha_a, $accion_a, $nombre_usuario, $id_bi));
+              //fin procedure
 
         Session::flash('flash_message', 'examan added!');
 
@@ -142,39 +167,48 @@ class examenController extends Controller
         $this->validate($request, ['nombre_examen' => 'required',]);
         $id_curso=$request->input('id_curso');
 
+
         $examen=DB::table('examens')->where('id',$id)->first();
-          //store procedure
+              //store procedure
             $nombre_examen = $examen->nombre_examen;
             $fecha_examen = $examen->fecha_examen;
-            $id_curso=  $id_curso;
+            $nombre_curso = DB::table('cursos')->where('id',$id_curso)->first();
+            $puntaje_examen=$examen->puntaje_totalm;
+            $dato_nuevo="";//1
+            $dato_viejo=$nombre_examen.'#'.$fecha_examen.'#'.$nombre_curso->nombre.'#'.$puntaje_examen;//2
+            $nombre_maq = gethostname(); $ip = gethostbyname($nombre_maq);//3
+            $nombre_tabla="examenes";//4
+            $fecha_a = date("Y-m-d H:i:s");//5
+            $accion_a='update';//6
             $id_user=Auth::id();
             $usuario= DB::table('users')->where('id', $id_user)->first();
-            $nombre_usuario = $usuario->name.' '.$usuario->apellido;
-            $fecha_a = date("Y-m-d H:i:s");
-            $accion_a='updatev';
-            $id_bi=0;
+            $nombre_usuario = $usuario->name.' '.$usuario->apellido;//7
+            $id_bi=0;//8
 
-            DB::select('CALL PA_examen(?,?,?,?,?,?,?)', array($nombre_examen, $fecha_examen, $id_curso, $nombre_usuario, $fecha_a, $accion_a, $id_bi));
+            DB::select('CALL Bitacora(?,?,?,?,?,?,?,?)', array($dato_nuevo, $dato_viejo, $ip, 
+                $nombre_tabla, $fecha_a, $accion_a, $nombre_usuario, $id_bi));
+              //fin procedure
 
         $examan = examan::findOrFail($id);
         $examan->update($request->all());
 
-          //store procedure
 
-        $recurso= DB::table('bitacora_examenes')->where('usuario', $nombre_usuario)->where('fecha', $fecha_a)->first();
+        $recurso= DB::table('bitacora_examenes')->where('usuario_bi', $nombre_usuario)->where('fecha_bi', $fecha_a)->first();
            $recurso=$recurso->id;
 
+         //store procedure
             $nombre_examen = $request->input('nombre_examen');
-            $fecha_examen_plus = $fecha_examen;
-            $id_curso=  $request->input('id_curso');
-            $id_user=Auth::id();
-            $usuario= DB::table('users')->where('id', $id_user)->first();
-            $nombre_usuario = $usuario->name.' '.$usuario->apellido;
-            $fecha_a = date("Y-m-d H:i:s");
-            $accion_a='update';
-            $id_bi=$recurso;
+            $fecha_examen = date("Y-m-d H:i:s");
+            $nombre_curso = DB::table('cursos')->where('id',$request->input('id_curso'))->first();
+            $puntaje_examen= $request->input('puntaje_totalm');
+            $dato_nuevo=$nombre_examen.'#'.$fecha_examen.'#'.$nombre_curso->nombre.'#'.$puntaje_examen;//1
+            $dato_viejo="";//2
+            $accion_a='updaten';//6
+            $id_bi=$recurso;//8
 
-            DB::select('CALL PA_examen(?,?,?,?,?,?,?)', array($nombre_examen, $fecha_examen_plus, $id_curso, $nombre_usuario, $fecha_a, $accion_a, $id_bi));
+            DB::select('CALL Bitacora(?,?,?,?,?,?,?,?)', array($dato_nuevo, $dato_viejo, $ip, 
+                $nombre_tabla, $fecha_a, $accion_a, $nombre_usuario, $id_bi));
+              //fin procedure
 
 
         Session::flash('flash_message', 'examan updated!');
@@ -192,18 +226,25 @@ class examenController extends Controller
     public function destroy($id,$id_curso)
     {
           $examen=DB::table('examens')->where('id',$id)->first();
-          //store procedure
+              //store procedure
             $nombre_examen = $examen->nombre_examen;
             $fecha_examen = $examen->fecha_examen;
-            $id_curso=  $id_curso;
+            $nombre_curso = DB::table('cursos')->where('id',$id_curso)->first();
+            $puntaje_examen= $examen->puntaje_totalm;
+            $dato_nuevo="";//1
+            $dato_viejo=$nombre_examen.'#'.$fecha_examen.'#'.$nombre_curso->nombre.'#'.$puntaje_examen;//2
+            $nombre_maq = gethostname(); $ip = gethostbyname($nombre_maq);//3
+            $nombre_tabla="examenes";//4
+            $fecha_a = date("Y-m-d H:i:s");//5
+            $accion_a='delete';//6
             $id_user=Auth::id();
             $usuario= DB::table('users')->where('id', $id_user)->first();
-            $nombre_usuario = $usuario->name.' '.$usuario->apellido;
-            $fecha_a = date("Y-m-d H:i:s");
-            $accion_a='delete';
-            $id_bi=0;
+            $nombre_usuario = $usuario->name.' '.$usuario->apellido;//7
+            $id_bi=0;//8
 
-            DB::select('CALL PA_examen(?,?,?,?,?,?,?)', array($nombre_examen, $fecha_examen, $id_curso, $nombre_usuario, $fecha_a, $accion_a, $id_bi));
+            DB::select('CALL Bitacora(?,?,?,?,?,?,?,?)', array($dato_nuevo, $dato_viejo, $ip, 
+                $nombre_tabla, $fecha_a, $accion_a, $nombre_usuario, $id_bi));
+              //fin procedure
         
         examan::destroy($id);
 

@@ -19,7 +19,7 @@
         </div>
     <!--Termina path de las Listas de contenido del curso.
     -->
-        <div class="col-md-14 col-md-offset-0">
+        <div class="col-md-14 col-md-offset-0" style="padding-top:50px;">
             <div class="panel panel-default">
                 <div class="panel-heading">GESTOR MATERIA</div>
 
@@ -41,11 +41,14 @@
         </div>
     <!--Termina path de crear preguntas para examen.
     -->
-    <h1>Crear Nueva Pregunta</h1>
+    <h1 style="padding-top: 20px;">Crear Nueva Pregunta</h1>
+
     <hr/>
 
     {!! Form::open(['url' => '/gestor_examenes/pregunta', 'class' => 'form-horizontal']) !!}
-
+       @if($mensaje_create!="")
+        <ul class="alert alert-danger"><li>{{ $mensaje_create }}</li></ul>
+        @endif
                 <div class="form-group {{ $errors->has('nombre_pregunta') ? 'has-error' : ''}}">
                 {!! Form::label('nombre_pregunta', trans('pregunta.nombre_pregunta'), ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
@@ -80,7 +83,7 @@
 
     <div class="form-group">
         <div class="col-sm-offset-3 col-sm-3">
-            {!! Form::submit('Create', ['class' => 'btn btn-primary form-control']) !!}
+            {!! Form::submit('Crear', ['class' => 'btn btn-primary form-control']) !!}
         </div>
     </div>
     {!! Form::close() !!}

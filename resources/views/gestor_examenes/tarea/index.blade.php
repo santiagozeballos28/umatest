@@ -19,7 +19,7 @@
         </div>
     <!--Termina path de las Listas de contenido del curso.
     -->
-        <div class="col-md-14 col-md-offset-0">
+        <div class="col-md-14 col-md-offset-0" style="padding-top:50px;">
             <div class="panel panel-default">
                 <div class="panel-heading">GESTOR DE TAREAS</div>
 
@@ -30,16 +30,16 @@
     <div class="col-md-14 col-md-offset-0 borderpath" style="width: 16%;margin-left: 0%;">
                     <ol class="breadcrumb">
                     <li><a href="{{ url('admin/curso_dicta/'.$id_curso.'/vista_contenido_curso') }}"><i class="fa fa-dashboard"></i>Principal</a></li>
-                    <li><a href="#"></i>Mis Tareas</a></li>
+                    <li><a href="#"></i>Planillas</a></li>
                     </ol>
         </div>
     <!--Termina path que solo muestra todas las tareas de un docente.
     -->
       @if($tipo=='crear')
-    <h1>Tarea <a href="{{ url('/gestor_examenes/'.$id_curso.'/tarea/'.$tipo.'/create') }}" class="btn btn-primary btn-xs" title="Añadir Nuevo Tarea"><span class="glyphicon glyphicon-plus" aria-hidden="true"/></a></h1>
+    <h1 style="padding-top: 20px;">Tarea <a href="{{ url('/gestor_examenes/'.$id_curso.'/tarea/'.$tipo.'/create') }}" class="btn btn-primary btn-xs" title="Añadir Nuevo Tarea"><span class="glyphicon glyphicon-plus" aria-hidden="true"/></a></h1>
     @else
 
-     <h1>Tarea <a href="#"></a></h1>
+     <h1 style="padding-top: 20px;">Tarea <a href="#"></a></h1>
    @endif
 
     <div class="table">

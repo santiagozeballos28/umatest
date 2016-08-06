@@ -8,7 +8,17 @@
 @section('main-content')
 <div class="container">
     <div class="row">
-        <div class="col-md-14 col-md-offset-0">
+    <!--Comienza path Restaurar backup.
+                -->
+                <div class="col-md-14 col-md-offset-0 borderpath" style="width: 19%;margin-left: 0%;">
+                    <ol class="breadcrumb">
+                    <li><a href="{{ url('/home') }}"><i class="fa fa-dashboard"></i>home</a></li>
+                    <li><a href="#"></i>Lista backup</a></li>
+                    </ol>
+                 </div>
+             <!--Termina path Restaurar backup.
+             -->
+        <div class="col-md-14 col-md-offset-0" style="padding-top:50px;">
             <div class="panel panel-default">
                 <div class="panel-heading">Copia de Seguridad</div>
 
@@ -20,7 +30,7 @@
         <table class="table table-bordered table-striped table-hover">
             <thead>
                 <tr>
-                    <th>S.No</th><th> Nombre Backup </th><th> Archivo Backup </th><th> Fecha Backup </th><th>Actions</th>
+                    <th>S.No</th><th> Nombre Backup </th><th> Archivo Backup </th><th> Fecha Backup </th><th>Acciones</th>
                 </tr>
             </thead>
             <tbody>

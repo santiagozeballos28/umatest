@@ -49,7 +49,7 @@
           
                 
                 <div class="col-sm-6">
-                    {!! Form::text('numero_pregunta' . $i, null, ['class' => 'form-control', 'required' => 'required']) !!}
+                    {!! Form::textarea('numero_pregunta' . $i, null, ['class' => 'form-control', 'required' => 'required']) !!}
                     {!! $errors->first('numero_pregunta' . $i, '<p class="help-block">:message</p>') !!}
                 </div>
             </div>

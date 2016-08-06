@@ -19,7 +19,7 @@
         </div>
     <!--Termina path de las Listas de contenido del curso.
     -->
-        <div class="col-md-14 col-md-offset-0">
+        <div class="col-md-14 col-md-offset-0" style="padding-top:50px;">
             <div class="panel panel-default">
                 <div class="panel-heading">GESTOR DE EXAMENES</div>
                 <div class="panel-body">
@@ -35,7 +35,7 @@
         </div>
     <!--Termina path de de mostrar examen.
     -->
-    <h1>Examen </h1>
+    <h1 style="padding-top: 20px;">Examen </h1>
     <div class="table-responsive">
         <table class="table table-bordered table-striped table-hover">
             <tbody>
@@ -49,7 +49,7 @@
                     <td colspan="2">
                         <a href="{{ url('/gestor_examenes/examen/' . $examan->id . '/update/'.$id_curso.'/edit') }}" class="btn btn-primary btn-xs" title="Editar Examan"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
 
-                       <a href="{{ url('/gestor_examenes/examen/' . $examan->id . '/delete/'.$id_curso.'/destroy') }}" class="btn btn-danger btn-xs" title="Eliminar Multiple" onclick="myfuncion()"><span class="glyphicon glyphicon-trash" aria-hidden="true" title="Eliminar Multiple" /></a>
+                       <a href="{{ url('/gestor_examenes/examen/' . $examan->id . '/delete/'.$id_curso.'/destroy') }}" class="btn btn-danger btn-xs" title="Eliminar Examen" onclick="myfuncion()"><span class="glyphicon glyphicon-trash" aria-hidden="true" title="Eliminar Examen" /></a>
                     </td>
                 </tr>
             </tfoot>

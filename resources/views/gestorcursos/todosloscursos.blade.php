@@ -18,7 +18,7 @@
         </div>
     <!--Termina path de las Listas de categorías de  las carreras
     -->
-        <div class="col-md-14 col-md-offset-0">
+        <div class="col-md-14 col-md-offset-0" style="padding-top:50px;">
             <div class="panel panel-default">
                 <div class="panel-heading">GESTOR DE MATERIAS</div>
 
@@ -43,7 +43,7 @@
 
               for($j=0; $j < count($vector_ids); $j++){
               
-              $curso = DB::table('cursos')->where('id_categoria', $vector_ids[$j])->get();
+              $curso = DB::table('cursos')->where('id_categoria', $vector_ids[$j])->where('estado_curso', 1)->get();
               $cantidad_curso[$j]=count($curso);
 
               }

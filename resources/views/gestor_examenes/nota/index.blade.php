@@ -20,7 +20,7 @@
         <table class="table table-bordered table-striped table-hover">
             <thead>
                 <tr>
-                    <th>S.No</th><th> {{ trans('nota.numero_preguntas') }} </th><th> {{ trans('nota.duracion') }} </th><th> {{ trans('nota.calificacion') }} </th><th>Actions</th>
+                    <th>S.No</th><th> {{ trans('nota.numero_preguntas') }} </th><th> {{ trans('nota.duracion') }} </th><th> {{ trans('nota.calificacion') }} </th><th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -31,17 +31,17 @@
                     <td>{{ $x }}</td>
                     <td>{{ $item->numero_preguntas }}</td><td>{{ $item->duracion }}</td><td>{{ $item->calificacion }}</td>
                     <td>
-                        <a href="{{ url('/gestor_examenes/nota/' . $item->id) }}" class="btn btn-success btn-xs" title="Ver Notum"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"/></a>
-                        <a href="{{ url('/gestor_examenes/nota/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs" title="Editar Notum"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
+                        <a href="{{ url('/gestor_examenes/nota/' . $item->id) }}" class="btn btn-success btn-xs" title="Ver Nota"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"/></a>
+                        <a href="{{ url('/gestor_examenes/nota/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs" title="Editar Nota"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
                         {!! Form::open([
                             'method'=>'DELETE',
                             'url' => ['/gestor_examenes/nota', $item->id],
                             'style' => 'display:inline'
                         ]) !!}
-                            {!! Form::button('<span class="glyphicon glyphicon-trash" aria-hidden="true" title="Eliminar Notum" />', array(
+                            {!! Form::button('<span class="glyphicon glyphicon-trash" aria-hidden="true" title="Eliminar Nota" />', array(
                                     'type' => 'submit',
                                     'class' => 'btn btn-danger btn-xs',
-                                    'title' => 'Eliminar Notum',
+                                    'title' => 'Eliminar Nota',
                                     'onclick'=>'return confirm("Esta seguro de eliminar?")'
                             ));!!}
                         {!! Form::close() !!}

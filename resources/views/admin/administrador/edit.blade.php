@@ -19,7 +19,7 @@
         </div>
     <!--Comienza path de Editar cuenta de Administrador.
     -->
-        <div class="col-md-14 col-md-offset-0">
+        <div class="col-md-14 col-md-offset-0" style="padding-top:50px;">
             <div class="panel panel-default">
                 <div class="panel-heading">GESTOR DE USUARIOS</div>
 
@@ -83,7 +83,9 @@
             <div class="form-group {{ $errors->has('password') ? 'has-error' : ''}}">
                 {!! Form::label('password', trans('administrador.password'), ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
-                    {!! Form::password('password', ['class' => 'form-control', 'required' => 'required']) !!}
+                    {!! Form::password('password', ['class' => 'form-control', 'required' => 'required'],['id' => 'password']) !!}
+                    <meter max="4" id="password-strength-meter"></meter>
+                    <p id="password-strength-text"></p>
                     {!! $errors->first('password', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>

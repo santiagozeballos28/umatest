@@ -36,7 +36,12 @@ class notaController extends Controller
        $bandera = $this->validation_formulario($id_examen);
        if($bandera[1]){
 
-         $numero_preguntas = DB::table('preguntas')->where('examen_id', $id_examen)->get();
+         $numero_inscritos=DB::table('curso_inscritos')->where('curso_id', $id_curso)->get();
+         $numero_inscritos=count($numero_inscritos);
+
+         if($numero_inscritos > 0){
+
+          $numero_preguntas = DB::table('preguntas')->where('examen_id', $id_examen)->get();
          
          $mensajeA='a';
          $mensajeB='b';
@@ -50,11 +55,22 @@ class notaController extends Controller
          $numero_preguntas=count($numero_preguntas);
 
         return view('gestor_examenes.nota.create', compact('id_curso', 'id_examen', 'numero_preguntas', 'puntaje', 'mensajeA', 'mensajeB'));
-
+      }else{
+            
+          $mensaje="¡¡Advertencia!! No tienes Estudiantes Inscritos";
+         return $this->msj_index_envio($mensaje, $id_curso);
+      }
+         
         }else{
+              $mensaje = $bandera[0];
+         return $this->msj_index_envio($mensaje, $id_curso);
 
+        }
+       
+    }
 
-       $fecha_actual = date("Y-m-d H:i:s");
+    private function msj_index_envio($msj, $id_curso){
+        $fecha_actual = date("Y-m-d H:i:s");
         $examen_control = DB::table('examens')->where('id_cursos', $id_curso)->get();
         $ids_exa_control=array();
         $puntero=0;
@@ -71,16 +87,13 @@ class notaController extends Controller
             }
         }
 
-          $mensaje_puntaje= $bandera[0];
+          $mensaje_puntaje= $msj;
 
           $examen = DB::table('examens')->where('id_cursos', $id_curso)->get();
 
-          return view('gestor_examenes.examen.index_envio',compact('examen','id_curso', 'mensaje_puntaje'));
-
-        }
-       
-    }
-
+        return view('gestor_examenes.examen.index',compact('examen','id_curso', 'mensaje_puntaje'));
+    
+  }
     /**
      * Store a newly created resource in storage.
      *
@@ -317,7 +330,8 @@ class notaController extends Controller
          
        DB::table('examens')->where('id',$id_examen)->update(array('estado_examen'=>0));
 
-      return redirect('gestor_examenes/'.$id_curso.'/examen_envio');
+      return redirect('gestor_examenes/'.$id_curso.'/examen');
+      
     }
 
 

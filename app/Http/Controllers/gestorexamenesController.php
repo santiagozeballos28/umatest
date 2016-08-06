@@ -163,6 +163,23 @@ class gestorexamenesController extends Controller
 
         //una vez abierto el formulario examen el estudiante no puede volver a dar
         DB::table('notas')->where('id',$id_nota)->update(array('estado'=>0));
+
+        //store procedure
+            
+            $dato_nuevo=$nombre_examen.'#'.$fecha_examen.'#'.$nombre_categoria.'#'.$duracion_total;//1
+            $dato_viejo="";//2
+            $nombre_maq = gethostname(); $ip = gethostbyname($nombre_maq);//3
+            $nombre_tabla="notas";//4
+            $fecha_a = date("Y-m-d H:i:s");//5
+            $accion_a='create';//6
+            $id_user=Auth::id();
+            $usuario= DB::table('users')->where('id', $id_user)->first();
+            $nombre_usuario = $usuario->name.' '.$usuario->apellido;//7
+            $id_bi=0;//8
+
+            DB::select('CALL Bitacora(?,?,?,?,?,?,?,?)', array($dato_nuevo, $dato_viejo, $ip, 
+                $nombre_tabla, $fecha_a, $accion_a, $nombre_usuario, $id_bi));
+              //fin procedure
         
 
       return view('gestor_examenes.vistas_examenes.formulario_examen', compact('nombre_examen', 
@@ -175,7 +192,7 @@ class gestorexamenesController extends Controller
 
       public function calcular_nota(Request $request){
         
-        
+        //con_res_formularios
          $cadena_puntaje=explode(",",$request->input('con_puntaje'));//envia 1
          $cadena_res_formulario=explode(",",$request->input('con_res_formularios'));//envia 2
          $separando= explode(",",$request->input('con_res_correctas'));
@@ -264,11 +281,12 @@ class gestorexamenesController extends Controller
          for ($i=0; $i < count($cadena_res_formulario); $i++) {  
            $respuestas_estudiante[$i]= $request->input($cadena_res_formulario[$i]);
          }
-
+         
+         $id_usuario=Auth::id();
          //guardar para modificar planilla notas
          for ($k=0; $k < count($respuestas_estudiante); $k++) { 
            if($tipo_pre[$k]==2){
-             DB::table('respuesta_desarrollos')->insert(['respuesta' => $respuestas_estudiante[$k], 'examen_id' => $request->input('id_examen'),'pregunta_id'=> $id_pre[$k]] );
+             DB::table('respuesta_desarrollos')->insert(['respuesta' => $respuestas_estudiante[$k], 'examen_id' => $request->input('id_examen'), 'id_user'=>$id_usuario,'pregunta_id'=> $id_pre[$k]] );
            }
          }
          //-.--.-..-.-

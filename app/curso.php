@@ -25,7 +25,7 @@ class curso extends Model
      *
      * @var array
      */
-    protected $fillable = ['nombre','descripcion','capacidad','codigo', 'id_categoria'];
+    protected $fillable = ['nombre','descripcion','capacidad','codigo','fecha_vencimiento','estado_curso','id_categoria'];
 
 
      public function categoria()

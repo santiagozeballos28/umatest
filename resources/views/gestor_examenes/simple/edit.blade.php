@@ -19,7 +19,7 @@
         </div>
     <!--Termina path de las Listas de contenido del curso.
     -->
-        <div class="col-md-14 col-md-offset-0">
+        <div class="col-md-14 col-md-offset-0" style="padding-top:50px;">
             <div class="panel panel-default">
                 <div class="panel-heading">GESTOR MATERIA</div>
 
@@ -40,7 +40,7 @@
         </div>
     <!--Termina path para Editar Respuestas a preguntas Simples.  
     -->
-    <h1>Editar Respuesta  {{ $simple->id }}</h1>
+    <h1 style="padding-top: 20px;">Editar Respuesta  {{ $simple->id }}</h1>
 
     {!! Form::model($simple, [
         'method' => 'PATCH',
@@ -67,7 +67,7 @@
 
     <div class="form-group">
         <div class="col-sm-offset-3 col-sm-3">
-            {!! Form::submit('Update', ['class' => 'btn btn-primary form-control']) !!}
+            {!! Form::submit('Actualizar', ['class' => 'btn btn-primary form-control']) !!}
         </div>
     </div>
     {!! Form::close() !!}

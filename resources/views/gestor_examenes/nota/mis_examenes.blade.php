@@ -46,7 +46,7 @@
               <!--Termina path de las Listas de contenido del curso desde docente.
            -->
         @endif
-        <div class="col-md-14 col-md-offset-0">
+        <div class="col-md-14 col-md-offset-0" style="padding-top:50px;">
             <div class="panel panel-default">
                 <div class="panel-heading">GESTOR MATERIA</div>
 
@@ -62,7 +62,7 @@
         </div>
     <!--Termina path de lista de examen de estudiantes.
     -->
-    <h1>MIS EXAMENES</h1>
+    <h1 style="padding-top: 20px;">MIS EXAMENES</h1>
     <div class="table">
         <table class="table table-bordered table-striped table-hover">
             <thead>

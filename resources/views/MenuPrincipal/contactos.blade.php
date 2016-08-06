@@ -22,7 +22,7 @@
         </div>
     <!--Termina path de Contacto
     -->
-        <div class="col-md-14 col-md-offset-0">
+        <div class="col-md-14 col-md-offset-0" style="padding-top:50px;">
             <div class="panel panel-default">
                 <div class="panel-heading"><h4> Contacto </h4></div>
                 <div class="panel-body">

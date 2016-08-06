@@ -8,14 +8,36 @@
 @section('main-content')
 <div class="container">
     <div class="row">
-        <div class="col-md-14 col-md-offset-0">
+    <!--Comienza path de contenido del curso.
+    -->
+    <div class="col-md-14 col-md-offset-0 borderpath" style="width: 34%;margin-left: 0%;">
+                    <ol class="breadcrumb">
+                    <li><a href="{{ url('/home') }}"><i class="fa fa-dashboard"></i>Gestor Materias</a></li>
+                    <li><a href="{{ url('/admin/curso_dicta') }}"><i class="fa fa-dashboard"></i>Materias</a></li>
+                    <li><a href="#"></i>Contenido del Curso</a></li>
+                    </ol>
+        </div>
+    <!--Termina path de contenido del curso.
+    -->
+        <div class="col-md-14 col-md-offset-0" style="padding-top:50px;">
             <div class="panel panel-default">
                 <div class="panel-heading">GESTOR DE TAREAS</div>
 
                 <div class="panel-body">
 <div class="container">
-
-    <h1>Tarea {{ $tarea->id }}</h1>
+{{-- */ $id_materia=$tarea->id_cursos; /* --}}
+<!--Comienza path de mis tarea.
+    -->
+    <div class="col-md-14 col-md-offset-0 borderpath" style="width: 17%;margin-left: 0%;">
+                    <ol class="breadcrumb">
+                    <li><a href="{{ url('admin/curso_dicta/'.$id_materia.'/vista_contenido_curso') }}"><i class="fa fa-dashboard"></i>Principal</a></li>
+                    <li><a href="{{ url('gestor_examenes/'.$id_materia.'/tareas/listar') }}"><i class="fa fa-dashboard"></i>Tareas</a></li>
+                    <li><a href="#"></i>Ver Tarea</a></li>
+                    </ol>
+        </div>
+    <!--Termina path de mis tarea.
+    -->
+    <h1 style="padding-top:20px;">Tarea {{ $tarea->id }}</h1>
     <div class="table-responsive">
         <table class="table table-bordered table-striped table-hover">
             <tbody>

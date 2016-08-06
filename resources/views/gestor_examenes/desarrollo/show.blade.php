@@ -19,15 +19,13 @@
         </div>
     <!--Termina path de las Listas de contenido del curso.
     -->
-        <div class="col-md-14 col-md-offset-0">
+        <div class="col-md-14 col-md-offset-0" style="padding-top:50px;">
             <div class="panel panel-default">
                 <div class="panel-heading">GESTOR MATERIA</div>
 
                 <div class="panel-body">
 
     <div class="container">
-
-    <h1>Desarrollo {{ $desarrollo->id }}</h1>
     {{-- */$id_test=DB::table('examens')->where('id', $id_examen)->first();
                     $id_test=$id_test->id_cursos;
              /* --}}
@@ -43,6 +41,7 @@
         </div>
     <!--Termina path de Respuesta de pregunta de desarrollo.
     -->
+    <h1>Desarrollo {{ $desarrollo->id }}</h1>
     <div class="table-responsive">
         <table class="table table-bordered table-striped table-hover">
             <tbody>
@@ -55,9 +54,9 @@
                 <tr>
                     <td colspan="2">
                        
-                         <a href="{{ url('/gestor_examenes/desarrollo/' . $desarrollo->id . '/'.$id_examen.'/edit') }}" class="btn btn-primary btn-xs" title="Editarar respuesta"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
+                         <a href="{{ url('/gestor_examenes/desarrollo/' . $desarrollo->id . '/'.$id_examen.'/edit') }}" class="btn btn-primary btn-xs" title="Editar respuesta"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
 
-                         <a href="{{ url('/gestor_examenes/desarrollo/' . $desarrollo->id . '/'.$id_examen.'/delete') }}" class="btn btn-danger btn-xs" title="Eliminar Multiple" onclick="myfuncion()"><span class="glyphicon glyphicon-trash" aria-hidden="true" title="Eliminar Multiple" /></a>
+                         <a href="{{ url('/gestor_examenes/desarrollo/' . $desarrollo->id . '/'.$id_examen.'/delete') }}" class="btn btn-danger btn-xs" title="Eliminar Respuesta" onclick="myfuncion()"><span class="glyphicon glyphicon-trash" aria-hidden="true" title="Eliminar Respuesta" /></a>
                     </td>
                 </tr>
             </tfoot>

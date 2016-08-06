@@ -14,11 +14,13 @@ class CreateBitacoraExamenesTable extends Migration
     {
         Schema::create('bitacora_examenes', function(Blueprint $table) {
             $table->increments('id');
-            $table->string('usuario');
-            $table->dateTime('fecha');
-            $table->string('accion');
-            $table->string('nuevo');
+            $table->string('usuario_bi');
+            $table->string('accion_bi');
+            $table->string('ip_bi');
+            $table->string('tabla_bi');
+            $table->dateTime('fecha_bi');
             $table->string('viejo');
+            $table->string('nuevo');
             $table->timestamps();
         });
     }

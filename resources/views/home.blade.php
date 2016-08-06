@@ -17,7 +17,7 @@
         </div>
     <!--Termina path de Home
     -->
-		<div class="col-md-14 col-md-offset-0">
+		<div class="col-md-14 col-md-offset-0" style="padding-top:50px;">
 			<div class="panel panel-default">
 				<div class="panel-heading">Home</div>
 

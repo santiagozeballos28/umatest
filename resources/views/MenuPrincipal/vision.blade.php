@@ -20,7 +20,7 @@
         </div>
     <!--Termina path de Visión
     -->
-        <div class="col-md-14 col-md-offset-0">
+        <div class="col-md-14 col-md-offset-0" style="padding-top:50px">
             <div class="panel panel-default">
                 <div class="panel-heading"><h4>Visión de la carrera de Sistemas </h4></div>
 
@@ -34,9 +34,7 @@
                   <!--/div-->
                   <div style="margin-left: 50px;margin-right: 12%;">
                   <!--h1>Visión de la carrera de Sistemas </h1-->
-                  <br><p>Ser una carrera de excelencia reconocida en el medio, dedicada a formar profesionales a nivel de licenciatura, capaces de resolver problemas que involucren tecnología computacional, con habilidad para administrar sistemas, proporcionar apoyo técnico, desarrollar y aplicar nuevos métodos y técnicas para 
-                  la construcción de sistemas de software, vinculados al avance científico y tecnológico, con valores éticos
-                  y responsabilidad socio-cultural.</p>
+                  <br><p>Una Facultad de Ciencias y Tecnología generando tres productos de alta calidad y competitividad: profesionales de Pre-grado, Post-grado y conocimientos científicos y tecnológicos, que satisfagan la demanda social en el tiempo previsto, con sistemas de gestión y administración eficientes y con enfoques flexibles que se adecuen dinámicamente a los desafíos que plantean el desarrollo científico y tecnológico nacional e internacional.</p>
                     </div>
       
             </div>

@@ -18,7 +18,7 @@
         </div>
     <!--Termina path de las Listas de todos los estudiantes.
     -->
-        <div class="col-md-14 col-md-offset-20">
+        <div class="col-md-14 col-md-offset-20" style="padding-top:50px;">
             <div class="panel panel-default">
                 <div class="panel-heading">GESTOR DE USUARIOS</div>
 
@@ -33,7 +33,7 @@
         <table class="table table-bordered table-striped table-hover">
             <thead>
                 <tr>
-                    <th>S.No</th><th> Nombre </th><th> {{ trans('users.apellido') }} </th><th> {{ trans('users.direccion') }} </th><th> {{ trans('users.telefono') }} </th><th> {{ trans('users.genero') }} </th><th>Actions</th>
+                    <th>S.No</th><th> Nombre </th><th> {{ trans('users.apellido') }} </th><th> {{ trans('users.direccion') }} </th><th> {{ trans('users.telefono') }} </th><th> {{ trans('users.genero') }} </th><th>Acciones</th>
                 </tr>
             </thead>
             <tbody>

@@ -17,7 +17,7 @@
         </div>
     <!--Termina path de las Listas de contenido del curso.
     -->
-        <div class="col-md-14 col-md-offset-0">
+        <div class="col-md-14 col-md-offset-0" style="padding-top:50px;">
             <div class="panel panel-default">
                 <div class="panel-heading">GESTOR DE TAREAS</div>
                   <div class="panel-body">
@@ -27,13 +27,13 @@
     <div class="col-md-14 col-md-offset-0 borderpath" style="width: 27%;margin-left: 0%;">
                     <ol class="breadcrumb">
                     <li><a href="{{ url('admin/curso_dicta/'.$id_curso.'/vista_contenido_curso') }}"><i class="fa fa-dashboard"></i>Principal</a></li>
-                    <li><a href="{{ url('gestor_examenes/'.$id_curso.'/examen/tarea') }}"><i class="fa fa-dashboard"></i>Mis Tareas</a></li>
+                    <li><a href="{{ url('gestor_examenes/'.$id_curso.'/tareas/listar') }}"><i class="fa fa-dashboard"></i>Mis Tareas</a></li>
                     <li><a href="#"></i>Nueva Tarea</a></li>
                     </ol>
         </div>
     <!--Termina path que muestra todas las tareas de un docente y permite crear una nueva tarea.
     -->
-    <h1>Nueva Tarea</h1>
+    <h1 style="padding-top:20px;">Nueva Tarea</h1>
 
        {!! Form::open(['url' => '/gestor_examenes/{id_curso}/tarea/upload', 'class' => 'form-horizontal','method' => 'post', 'enctype'=>'multipart/form-data']) !!}
 
@@ -54,7 +54,7 @@
 
             <div class="form-group {{ $errors->has('puntaje_total') ? 'has-error' : ''}}">
                 {!! Form::label('puntaje_total', trans('tarea.puntaje_total'), ['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-6">
+                <div class="col-sm-2">
                     {!! Form::number('puntaje_total', null, ['class' => 'form-control', 'required' => 'required']) !!}
                     {!! $errors->first('puntaje_total', '<p class="help-block">:message</p>') !!}
                 </div>

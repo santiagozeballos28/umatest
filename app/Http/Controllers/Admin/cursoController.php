@@ -41,10 +41,17 @@ class cursoController extends Controller
             ->where('estado',0)
             ->lists('nombre','id');
          //*/$vector = DB::table('categorias')->lists('nombre','id');
-        //echo $a[0]->nombre;
+        //echo $a[0]->nombre;->orderBy('fecha', 'desc')
         //echo $a[4]->nombre;
 
-        return view('admin.curso.create', compact('vector'));
+             $docentes= DB::table('role_user')
+            ->where('role_id', 2)
+         ->join('users', 'users.id', '=', 'role_user.user_id')
+            
+            //->select('users.id AS user_id','users.name')->get();
+            ->lists('users.name','users.id AS user_id');
+
+        return view('admin.curso.create', compact('vector','docentes'));
     }
 
     /**
@@ -62,30 +69,55 @@ class cursoController extends Controller
            
             if(is_null($validador)){
           
-            curso::create($request->all());
+            //$objeto = curso::create($request->all());
+
+           DB::table('cursos')->insert(
+            ['nombre' => $request->input('nombre'),'descripcion' => $request->input('descripcion'),
+            'capacidad' => $request->input('capacidad')
+              ,'codigo' => $request->input('codigo')
+              ,'id_categoria' => $request->input('id_categoria')
+              ,'fecha_vencimiento' => $request->input('fecha_vencimiento')
+              ,'estado_curso' => 1
+            ] );
+
+
+
+            //curso::create($request->all());
             
             $id_curso = DB::table('cursos')->where('codigo', $request->input('codigo'))->first();
             $id_curso=$id_curso->id;
+
+            $id_user=$request->input('user_id');
             
-            $id_user=Auth::id();
+            if ($id_user==null) {
+              $id_user=Auth::id();
+            }
+            
+            
 
              DB::table('curso_dictas')->insert(
             ['grupo' => 1, 'curso_id' => $id_curso, 'user_id'=>$id_user]
             ); 
             
                //store procedure
-            $nombre = $request->input('nombre');
+            $nombre_cur = $request->input('nombre');
             $capacidad = $request->input('capacidad');
             $codigo = $request->input('codigo');
-            $id_categoria = $request->input('id_categoria');
+            $fecha_vencimiento = $request->input('fecha_vencimiento');
+            $nombre_categoria = DB::table('categorias')->where('id',$request->input('id_categoria'))->first();
+            $dato_nuevo=$nombre_cur.'#'.$capacidad.'#'.$codigo.'#'.$nombre_categoria->nombre.'#'.$fecha_vencimiento;//1
+            $dato_viejo="";//2
+            $nombre_maq = gethostname(); $ip = gethostbyname($nombre_maq);//3
+            $nombre_tabla="cursos";//4
+            $fecha_a = date("Y-m-d H:i:s");//5
+            $accion_a='create';//6
             $usuario= DB::table('users')->where('id', $id_user)->first();
-            $nombre_usuario = $usuario->name.' '.$usuario->apellido;
-            $fecha_a = date("Y-m-d H:i:s");
-            $accion_a='create';
-            $id_bi=0;
+            $nombre_usuario = $usuario->name.' '.$usuario->apellido;//7
+            $id_bi=0;//8
 
-            DB::select('CALL PA_curso(?,?,?,?,?,?,?,?)', array($nombre, $capacidad, $codigo, $id_categoria, $nombre_usuario, $fecha_a, $accion_a, $id_bi));
-         
+            DB::select('CALL Bitacora(?,?,?,?,?,?,?,?)', array($dato_nuevo, $dato_viejo, $ip, 
+                $nombre_tabla, $fecha_a, $accion_a, $nombre_usuario, $id_bi));
+              //fin procedure
 
             Session::flash('flash_message', 'LA MATERIA SE HA CREADO SATISFACTORIAMENTE'); 
 
@@ -136,41 +168,49 @@ class cursoController extends Controller
     public function update($id, Request $request)
     {
         $this->validate($request, ['nombre' => "max:255", 'capacidad' => 'required|numeric|between:10,999', 'codigo' => "required|unique:cursos,codigo,$id", ]);
+
         $curso=DB::table('cursos')->where('id', $id)->first();
-           //store procedure
-            $nombre = $curso->nombre;
+
+            //inicio
+
+            $nombre_cur = $curso->nombre;
             $capacidad = $curso->capacidad;
             $codigo = $curso->codigo;
-            $id_categoria = $curso->id_categoria;
+            $nombre_categoria = DB::table('categorias')->where('id',$curso->id_categoria)->first();
+            $dato_nuevo="";//1
+            $dato_viejo=$nombre_cur.'#'.$capacidad.'#'.$codigo.'#'.$nombre_categoria->nombre;//2
+            $nombre_maq = gethostname(); $ip = gethostbyname($nombre_maq);//3
+            $nombre_tabla="cursos";//4
+            $fecha_a = date("Y-m-d H:i:s");//5
+            $accion_a='update';//6
             $id_user=Auth::id();
             $usuario= DB::table('users')->where('id', $id_user)->first();
-            $nombre_usuario = $usuario->name.' '.$usuario->apellido;
-            $fecha_a = date("Y-m-d H:i:s");
-            $accion_a='updatev';
-            $id_bi=0;
+            $nombre_usuario = $usuario->name.' '.$usuario->apellido;//7
+            $id_bi=0;//8
 
-            DB::select('CALL PA_curso(?,?,?,?,?,?,?,?)', array($nombre, $capacidad, $codigo, $id_categoria, $nombre_usuario, $fecha_a, $accion_a, $id_bi));
+            DB::select('CALL Bitacora(?,?,?,?,?,?,?,?)', array($dato_nuevo, $dato_viejo, $ip, 
+                $nombre_tabla, $fecha_a, $accion_a, $nombre_usuario, $id_bi));
+            //fin
 
         $curso = curso::findOrFail($id);
         $curso->update($request->all());
 
          
-           $recurso= DB::table('bitacora_cursos')->where('usuario', $nombre_usuario)->where('fecha', $fecha_a)->first();
+           $recurso= DB::table('bitacora_examenes')->where('usuario_bi', $nombre_usuario)->where('fecha_bi', $fecha_a)->first();
            $recurso=$recurso->id;
-  
 
-                //store procedure
-            $nombre = $request->input('nombre');
+               //store procedure
+            $nombre_cur = $request->input('nombre');
             $capacidad = $request->input('capacidad');
             $codigo = $request->input('codigo');
-            $id_categoria = $request->input('id_categoria');
-            
-            $accion_a='update';
-            $id_bi=$recurso;
+            $nombre_categoria = DB::table('categorias')->where('id',$request->input('id_categoria'))->first();
+            $dato_nuevo=$nombre_cur.'#'.$capacidad.'#'.$codigo.'#'.$nombre_categoria->nombre;//1
+            $accion_a='updaten';//6
+            $id_bi=$recurso;//8
 
-
-            DB::select('CALL PA_curso(?,?,?,?,?,?,?,?)', array($nombre, $capacidad, $codigo, $id_categoria, $nombre_usuario, $fecha_a, $accion_a, $id_bi));
-           //store procedure
+            DB::select('CALL Bitacora(?,?,?,?,?,?,?,?)', array($dato_nuevo, $dato_viejo, $ip, 
+                $nombre_tabla, $fecha_a, $accion_a, $nombre_usuario, $id_bi));
+              //fin procedure
 
 
         Session::flash('flash_message', 'curso updated!');
@@ -188,21 +228,29 @@ class cursoController extends Controller
     public function destroy($id)
     {
         $curso=DB::table('cursos')->where('id', $id)->first();
-           //store procedure
-            $nombre = $curso->nombre;
+
+            //inicio
+
+            $nombre_cur = $curso->nombre;
             $capacidad = $curso->capacidad;
             $codigo = $curso->codigo;
-            $id_categoria = $curso->id_categoria;
+            $nombre_categoria = DB::table('categorias')->where('id',$curso->id_categoria)->first();
+            $dato_nuevo="";//1
+            $dato_viejo=$nombre_cur.'#'.$capacidad.'#'.$codigo.'#'.$nombre_categoria->nombre;//2
+            $nombre_maq = gethostname(); $ip = gethostbyname($nombre_maq);//3
+            $nombre_tabla="cursos";//4
+            $fecha_a = date("Y-m-d H:i:s");//5
+            $accion_a='delete';//6
             $id_user=Auth::id();
             $usuario= DB::table('users')->where('id', $id_user)->first();
-            $nombre_usuario = $usuario->name.' '.$usuario->apellido;
-            $fecha_a = date("Y-m-d H:i:s");
-            $accion_a='delete';
-            $id_bi=0;
+            $nombre_usuario = $usuario->name.' '.$usuario->apellido;//7
+            $id_bi=0;//8
 
-            DB::select('CALL PA_curso(?,?,?,?,?,?,?,?)', array($nombre, $capacidad, $codigo, $id_categoria, $nombre_usuario, $fecha_a, $accion_a, $id_bi));
+            DB::select('CALL Bitacora(?,?,?,?,?,?,?,?)', array($dato_nuevo, $dato_viejo, $ip, 
+                $nombre_tabla, $fecha_a, $accion_a, $nombre_usuario, $id_bi));
+            //fin
+           
 
-            //fin store procedure
 
         DB::table('curso_inscritos')->where('curso_id', $id)->delete();
 

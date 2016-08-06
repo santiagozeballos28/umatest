@@ -12,15 +12,17 @@
     <div class="col-md-14 col-md-offset-0">
     <!--Comienza path de Mostar cuenta de Docentes.
     -->
-                    <ol class="breadcrumb borderpath" style="width: 31%;margin-left: 0%;">
+    <div class="col-md-14 col-md-offset-0 borderpaht" style="width: 21%;margin-left: 0%;">
+                    <ol class="breadcrumb">
                     <li><a href="{{ url('/home') }}"><i class="fa fa-dashboard"></i>Gestor Usuarios</a></li>
                     <li><a href="{{ url('admin/docente') }}"><i class="fa fa-dashboard"></i>Docentes</a></li>
                     <li><a href="#"></i>Cuenta de Docente</a></li>
                     </ol>
+                    </div>
     <!--Termina path de Mostrar cuenta de docentes.
     -->
-        </div>
-        <div class="col-md-14 col-md-offset-0">
+        
+        <div class="col-md-14 col-md-offset-0" style="padding-top:50px;">
             <div class="panel panel-default">
                 <div class="panel-heading">GESTOR DE USUARIOS</div>
 

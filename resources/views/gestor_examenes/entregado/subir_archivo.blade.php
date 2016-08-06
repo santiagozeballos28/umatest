@@ -17,7 +17,7 @@
                </div>
             <!--Termina path de contenido del curso desde estudiante.
             -->
-        <div class="col-md-14 col-md-offset-0">
+        <div class="col-md-14 col-md-offset-0" style="padding-top:50px;">
             <div class="panel panel-default">
                 <div class="panel-heading">GESTOR DE TAREAS</div>
                   <div class="panel-body">
@@ -33,7 +33,7 @@
         </div>
     <!--Termina path de lista de tareas de estudiantes.
     -->
-    <h1>Entregando tarea</h1>
+    <h1 style="padding-top: 20px;">Entregando tarea</h1>
 
        {!! Form::open(['url' => '/gestor_examenes/{id_curso}/archivo/{id}/upload', 'class' => 'form-horizontal','method' => 'post', 'enctype'=>'multipart/form-data']) !!}
 

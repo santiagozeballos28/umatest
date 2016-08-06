@@ -28,7 +28,7 @@
                 <li class="active"><a href="{{ url('/vision') }}">Visión<span class="sr-only">(current)</span></a></li>
 
 
-                <li class="active"><a href="{{ url('/contactos') }}">Contactos<span class="sr-only">(current)</span></a></li>
+                <!--li class="active"><a href="{{ url('/contactos') }}">Contactos<span class="sr-only">(current)</span></a></li-->
                 <li class="active"><a href="{{ url('/ayuda') }}">Ayuda<span class="sr-only">(current)</span></a></li>
             </ul>
 
@@ -108,8 +108,24 @@
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                {{-- */$id_user=Auth::id(); /* --}}
-                                <a href="{{ url('/admin/users/' . $id_user . '/edit') }}" class="btn btn-default btn-flat">Perfil</a>
+                            
+                               {{-- */$id_user=Auth::id(); /* --}}
+
+                                {{-- */$id_user=Auth::id();   
+                                /* --}}
+                                {{-- */$id_rol=DB::table('role_user')->where('user_id', $id_user)->first();
+                                        $id_rol=$id_rol->role_id;    
+                                /* --}}
+                                {{-- */$name_rol=DB::table('roles')->where('id', $id_rol)->first();
+                                        $name_rol=$name_rol->nombre_rol;
+                                /* --}}
+                                @if($name_rol=='administrador') 
+                                    <a href="{{ url('/admin/administrador/' . $id_user . '/edit') }}" class="btn btn-default btn-flat">Perfil</a>
+
+                                @else
+                                        <a href="{{ url('/admin/users/' . $id_user . '/edit') }}" class="btn btn-default btn-flat">Perfil</a>  
+                                @endif
+                                
                             </div>
 
                             <div class="pull-right">
@@ -119,9 +135,7 @@
                     </ul>
                 </li>
                 <!-- Control Sidebar Toggle Button -->
-                <li>
-                    <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-                </li>
+               
             </ul>
         </div>
     </nav>

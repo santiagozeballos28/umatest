@@ -19,7 +19,7 @@
         </div>
     <!--Termina path de las Listas de contenido del curso.
     -->
-        <div class="col-md-14 col-md-offset-0">
+        <div class="col-md-14 col-md-offset-0" style="padding-top:50px;">
             <div class="panel panel-default">
                 <div class="panel-heading">GESTOR MATERIA</div>
 
@@ -44,7 +44,7 @@
     <!--Termina path para Crear Respuesta a preguntas de seleccion multiples.  
     -->
 
-    <h1>Añadir Respuesta Multiple</h1>
+    <h1 style="padding-top: 20px;">Añadir Respuesta Multiple</h1>
     <hr/>
 
     {!! Form::open(['url' => '/gestor_examenes/multiples_varios', 'class' => 'form-horizontal']) !!}
@@ -79,7 +79,7 @@
 
     <div class="form-group">
         <div class="col-sm-offset-3 col-sm-3">
-            {!! Form::submit('Create', ['class' => 'btn btn-primary form-control']) !!}
+            {!! Form::submit('Crear', ['class' => 'btn btn-primary form-control']) !!}
         </div>
     </div>
     {!! Form::close() !!}

@@ -57,7 +57,7 @@ class IntegracionTest extends TestCase
              ->seePageIs('/gestor_examenes/examen/1/create')
              ->type('primer parcial','nombre_examen')
              ->type(100,'puntaje_totalm')
-             ->press('Create')
+             ->press('Crear')
              ->seePageIs('/gestor_examenes/1/examen');
     }
 

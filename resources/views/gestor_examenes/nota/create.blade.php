@@ -19,7 +19,7 @@
               </div>
               <!--Termina path de las Listas de contenido del curso desde docente.
            -->
-        <div class="col-md-14 col-md-offset-0">
+        <div class="col-md-14 col-md-offset-0" style="padding-top:50px;">
             <div class="panel panel-default">
                 <div class="panel-heading">GESTOR MATERIA</div>
 
@@ -36,7 +36,7 @@
         </div>
     <!--Termina path de de Enviar exámenes.
     -->
-    <h1>Enviar Examen</h1>
+    <h1 style="padding-top: 20px;">Enviar Examen</h1>
     <hr/>
 
     {!! Form::open(['url' => '/gestor_examenes/nota', 'class' => 'form-horizontal']) !!}

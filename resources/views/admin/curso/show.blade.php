@@ -19,7 +19,7 @@
         </div>
     <!--Termina path de ver materia de docentes.
     -->
-        <div class="col-md-14 col-md-offset-0">
+        <div class="col-md-14 col-md-offset-0" style="padding-top:50px;">
             <div class="panel panel-default">
                 <div class="panel-heading">GESTOR MATERIA</div>
 
@@ -40,7 +40,7 @@
             <tfoot>
                 <tr>
                     <td colspan="2">
-                        <a href="{{ url('admin/curso/' . $curso->id . '/edit') }}" class="btn btn-primary btn-xs" title="Editar Curso"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
+                        <a href="{{ url('admin/curso/' . $curso->id . '/edit') }}" class="btn btn-primary btn-xs" title="Editar Materia"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
                         {!! Form::open([
                             'method'=>'DELETE',
                             'url' => ['admin/curso', $curso->id],
@@ -49,7 +49,7 @@
                             {!! Form::button('<span class="glyphicon glyphicon-trash" aria-hidden="true"/>', array(
                                     'type' => 'submit',
                                     'class' => 'btn btn-danger btn-xs',
-                                    'title' => 'Eliminar Curso',
+                                    'title' => 'Eliminar Materia',
                                     'onclick'=>'return confirm("Esta seguro de eliminar?")'
                             ));!!}
                         {!! Form::close() !!}

@@ -26,9 +26,28 @@ class entregadoController extends Controller
     {
         $entregado = entregado::paginate(15);
 
+
+
+
+
         return view('gestor_examenes.entregado.index', compact('entregado'));
     }
+     public function listar()
+    {
+          $foro= DB::table('foros')
+            ->where('id_curso', $id_curso)
+            ->join('users', 'users.id', '=', 'foros.id_user')
+            ->orderBy('fecha', 'desc')
+            ->select('foros.id AS id_foro','users.id AS id_user','users.name','users.apellido','foros.titulo','foros.mensaje','foros.archivo','foros.fecha')
+            ->get();
 
+
+
+        
+
+        return view('gestor_examenes.entregado.index', compact('entregado'));
+    }
+ 
     /**
      * Show the form for creating a new resource.
      *

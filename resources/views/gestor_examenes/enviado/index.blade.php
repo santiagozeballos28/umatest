@@ -20,7 +20,7 @@
         <table class="table table-bordered table-striped table-hover">
             <thead>
                 <tr>
-                    <th>S.No</th><th> {{ trans('enviado.fecha_limite') }} </th><th>Actions</th>
+                    <th>S.No</th><th> {{ trans('enviado.fecha_limite') }} </th><th>Acciones</th>
                 </tr>
             </thead>
             <tbody>

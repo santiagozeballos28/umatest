@@ -1,26 +1,42 @@
-@extends('layouts.app')
+@extends('app')
 
-@section('content')
+@section('htmlheader_title')
+   Home
+@endsection
+
+
+@section('main-content')
+<div class="container">
+    <div class="row">
+        <div class="col-md-14 col-md-offset-20" style="padding-top:50px;">
+            <div class="panel panel-default">
+                <div class="panel-heading">GESTOR DE MATERIAS</div>
+
+                <div class="panel-body">
 <div class="container">
 
-    <h1>Create New Materia_dictum</h1>
+    <h1>Actualizar Fecha Vencimiento Curso</h1>
+    <h3>{{$nombre}}</h3>
     <hr/>
 
     {!! Form::open(['url' => '/admin/curso_dicta', 'class' => 'form-horizontal']) !!}
 
-
-            <div class="form-group {{ $errors->has('grupo') ? 'has-error' : ''}}">
-                {!! Form::label('grupo', trans('curso_dicta.grupo'), ['class' => 'col-sm-3 control-label']) !!}
+            
+             <div class="form-group {{ $errors->has('fecha_vencimiento') ? 'has-error' : ''}}">
+                {!! Form::label('fecha_vencimiento', 'Fecha Vencimiento', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
-                    {!! Form::text('grupo', null, ['class' => 'form-control', 'required' => 'required']) !!}
-                    {!! $errors->first('grupo', '<p class="help-block">:message</p>') !!}
+                    {!! Form::date('fecha_vencimiento', null, ['class' => 'form-control', 'required' => 'required']) !!}
+                    {!! $errors->first('fecha_vencimiento', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
 
 
+            {!! Form::hidden('id_curso',$id_curso, ['class' => 'form-control' , 'required' => 'required']) !!}
+            {!! $errors->first('id_curso', '<p class="help-block">:message</p>') !!}
+               
     <div class="form-group">
         <div class="col-sm-offset-3 col-sm-3">
-            {!! Form::submit('Create', ['class' => 'btn btn-primary form-control']) !!}
+            {!! Form::submit('Actualizar', ['class' => 'btn btn-primary form-control']) !!}
         </div>
     </div>
     {!! Form::close() !!}
@@ -33,5 +49,10 @@
         </ul>
     @endif
 
+</div>
+ </div>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection

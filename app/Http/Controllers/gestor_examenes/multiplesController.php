@@ -35,8 +35,9 @@ class multiplesController extends Controller
 
     public function create($id_pregunta)
     {
+         $mensaje_create="";
         
-        return view('gestor_examenes.multiples.create', compact('id_pregunta'));
+        return view('gestor_examenes.multiples.create', compact('id_pregunta', 'mensaje_create'));
     }
 
     /**
@@ -53,26 +54,46 @@ class multiplesController extends Controller
         $query=DB::table('multiples')->where('pregunta_id', $request->input('pregunta_id'))->where('correcta',1)->get();
         $query_size=count($query);
 
-        if($query_size==0){
-         
-            DB::table('multiples')->insert(
+        
+  if($query_size==0){
+     
+          DB::table('multiples')->insert(
             ['respuesta' => $request->input('respuesta'), 'correcta' => $request->input('correcta'), 
             'pregunta_id' => $request->input('pregunta_id')]
             ); 
 
-        }else{
+            return redirect('gestor_examenes/multiples/'.$request->input('pregunta_id').'/index');
 
-               DB::table('multiples')->insert(
-            ['respuesta' => $request->input('respuesta'), 'correcta' => 0, 
+        }else{
+            
+             DB::table('multiples')->insert(
+            ['respuesta' => $request->input('respuesta'), 'correcta' => $request->input('correcta'), 
             'pregunta_id' => $request->input('pregunta_id')]
             ); 
+             
+            $ultimo =DB::table('multiples')->orderBy('id', 'desc')->first();
+            $ultimo=$ultimo->id;
+
+            $query2=DB::table('multiples')->where('pregunta_id', $request->input('pregunta_id'))->where('correcta',1)->get();
+            
+            $query_size2=count($query2);
+            
+             if($query_size2 > 1){
+              
+             DB::table('multiples')->where('id', $ultimo)->delete();
+
+              $mensaje_create="¡¡Advertencia!! No puedes crear mas de una respuesta como correcta";
+              $id_pregunta=$request->input('pregunta_id');
+              return view('gestor_examenes.multiples.create', compact('id_pregunta', 'mensaje_create'));
+
+             }
+            
+            return redirect('gestor_examenes/multiples/'.$request->input('pregunta_id').'/index');
+
         }
 
-        
 
-        Session::flash('flash_message', 'multiple added!');
-
-        return redirect('gestor_examenes/multiples/'.$request->input('pregunta_id').'/index');
+       
     }
 
     /**
@@ -98,9 +119,11 @@ class multiplesController extends Controller
      */
     public function edit($id, $id_pregunta)
     {
+        $mensaje_create="";
+
         $multiple = multiple::findOrFail($id);
 
-        return view('gestor_examenes.multiples.edit', compact('multiple', 'id_pregunta'));
+        return view('gestor_examenes.multiples.edit', compact('multiple', 'id_pregunta', 'mensaje_create'));
     }
 
     /**
@@ -114,12 +137,42 @@ class multiplesController extends Controller
     {
         $this->validate($request, ['respuesta' => 'required', 'correcta' => 'required', ]);
 
+         $query=DB::table('multiples')->where('pregunta_id', $request->input('pregunta_id'))->where('correcta',1)->get();
+
+        $query_size=count($query);
+
         $multiple = multiple::findOrFail($id);
+        if($query_size==0){
+         
         $multiple->update($request->all());
 
         Session::flash('flash_message', 'multiple updated!');
 
         return redirect('gestor_examenes/multiples/'.$request->input('pregunta_id').'/index');
+
+        }else{
+            
+            $multiple->update($request->all());
+            
+            $query2=DB::table('multiples')->where('pregunta_id', $request->input('pregunta_id'))->where('correcta',1)->get();
+            
+            $query_size2=count($query2);
+            
+             if($query_size2 > 1){
+              
+             DB::table('multiples')->where('id', $id)->update(['respuesta' => $request->input('respuesta'), 'correcta' => 0 ]);
+
+             $mensaje_create="¡¡Advertencia!! No puedes crear mas de una respuesta como correcta";
+              $id_pregunta=$request->input('pregunta_id');
+              return view('gestor_examenes.multiples.edit', compact('multiple', 'id_pregunta', 'mensaje_create'));
+
+             }
+            
+            return redirect('gestor_examenes/multiples/'.$request->input('pregunta_id').'/index');
+
+        }
+
+
     }
 
     /**

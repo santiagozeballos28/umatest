@@ -45,25 +45,25 @@
               <!--Termina path de las Listas de contenido del curso desde docente.
            -->
         @endif
-        <div class="col-md-14 col-md-offset-0">
+        <div class="col-md-14 col-md-offset-0" style="padding-top:50px;">
         
             <div class="panel panel-default">
                 <div class="panel-heading">GESTOR DE MATERIAS</div>
 
-                <div class="panel-body" style="background-color: #c5e1a5">
+                <div class="panel-body" style="background-color: #3c8dbc;">
       <!-- Main content -->
        {{-- */$curso= DB::table('cursos')->where('id', $id_curso)->first();
               $titulo=$curso->nombre;
               $descripcion=$curso->descripcion;   
              /* --}}
-      <div class="row" style="background-color: #c5e1a5;">
+      <div class="row" style="background-color: rgba(211, 225, 242, 0.65);">
          <div style=" width: 70%; float :right; text-align: center;padding-right: 8%; font-size: 200%; font-weight: bold; font-family: Arial; color: red;">{{$titulo}}</div>
          </br>
          </br>
          </br>
          </br>
        <div style="width: 70%; float :right; text-align: center;padding-right: 8%;font-size: 100%; font-family: Arial; color: black;">{{$descripcion}}</div>
-        <div class="col-md-3">
+        <div class="col-md-3" style="width:25%;">
          <!-- <a href="compose.html" class="btn btn-primary btn-block margin-bottom">Compose</a>
           -->
           <div class="box box-solid">
@@ -87,7 +87,7 @@
                   <ul class="dropdown-menu" role="menu">
                     <li><a href="{{ url('gestor_examenes/'.$id_curso.'/examen') }}" >Mis Examenes</li>
                     <li><a href="{{ url('gestor_examenes/examen/'.$id_curso.'/create') }}" >Crear Examen</a></li>
-                    <li><a href="{{ url('gestor_examenes/'.$id_curso.'/examen_envio') }} ">Enviar Examen</a></li>
+                  
                   </ul>
 
                   <li><a href="{{url('gestor_examenes/examen/'.$id_curso.'/listar_estudiantes')}}"><i class="fa fa-file-text-o"></i> Mis Estudiantes </a></li>
@@ -105,21 +105,29 @@
 
 
                   @else
-              
+                   <li class="dropdown">
                      <a href="#" class="fa fa-file-text-o dropdown-toggle " data-toggle="dropdown"> Examenes Docente<span class="caret"></span></a>
 
+                  
                   <ul class="dropdown-menu" role="menu">
                     <li><a href="{{ url('gestor_examenes/'.$id_curso.'/examen') }}" >Mis Examenes</li>
                     <li><a href="{{ url('gestor_examenes/examen/'.$id_curso.'/create') }}" >Crear Examen</a></li>
-                    <li><a href="{{ url('gestor_examenes/'.$id_curso.'/examen_envio') }} ">Enviar Examen</a></li>
+                  
                   </ul>
+
+                  <li><a href="{{url('gestor_examenes/examen/'.$id_curso.'/listar_estudiantes')}}">Mis Estudiantes </a></li>
+
+                  <li><a href="{{url('gestor_planillas/'.$id_curso.'/planilla/listar')}}"> Ver planilla de estudiantes </a></li>
+                  </li>
+                    <li class="dropdown">
+                  <a href="#" class="fa fa-file-text-o dropdown-toggle " data-toggle="dropdown"> Examenes Estudiante<span class="caret"></span></a>
 
                   
-                     <a href="#" class="fa fa-file-text-o dropdown-toggle " data-toggle="dropdown"> Examenes Estudiante<span class="caret"></span></a>
-
                    <ul class="dropdown-menu" role="menu">
-                    <li><a href="{{ url('gestor_examenes/'.$id_curso.'/examen_envio') }}" >Mis Examenes</li>
-                  </ul>
+                    <li><a href="{{ url('gestor_examenes/examen/'.$id_curso.'/ver_examenes_estudiante') }}" >Mis Examenes</a></li>
+                    </ul>
+                     <li><a href="{{ url('gestor_planillas/'.$id_curso.'/ver/kardex') }}" >Ver Kardex</a></li>
+                      </li>
 
                   @endif
               </li>
@@ -136,6 +144,7 @@
 
 
                  <li><a href="{{ url('gestor_examenes/'.$id_curso.'/tareas/listar') }}">Mis Tareas </a></li>
+                 <li><a href="{{ url('gestor_examenes/'.$id_curso.'/tareas/recibidos/estudiantes') }}">Tareas recibidos </a></li>
                 <!--li><a href="{{ url('gestor_examenes/'.$id_curso.'/examen/crear/tarea') }}"></i> Crear Tarea </a></li-->
 
                     <!--li><a href="{{ url('gestor_examenes/'.$id_curso.'/envio') }} ">Enviar Tarea</a></li-->

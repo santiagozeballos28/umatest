@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\gestor_planillas;
+//use App\Http\Controllers\gestor_examenes;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\enviado;
@@ -183,6 +184,35 @@ class planillaController extends Controller
               
         return view('gestor_planillas.editar_planilla', compact('estudiantes','examenes','notas_estudiantes','id_curso'));
     }
+    public function modificar_notas($id_curso)
+    {
+             $estudiantes= DB::table('curso_inscritos')
+            ->where('curso_id', $id_curso)
+            ->join('users', 'users.id', '=', 'curso_inscritos.user_id')
+            ->orderBy('apellido', 'asc')
+            ->select('users.id AS id_user','users.apellido','users.name')
+            //->distinct()
+            ->get();
+
+            $examenes= DB::table('examens')
+            ->where('id_cursos', $id_curso)
+            ->join('notas', 'examens.id', '=', 'notas.examen_id')
+            ->orderBy('notas.fecha_inicio', 'asc')
+            ->select('examens.id','examens.nombre_examen')
+            ->distinct()
+            ->get();
+         
+            $notas_estudiantes= DB::table('examens')
+            ->where('id_cursos', $id_curso)
+            ->join('notas', 'examens.id', '=', 'notas.examen_id')
+            ->join('users', 'users.id', '=', 'notas.user_id')
+            ->orderBy('notas.fecha_inicio', 'desc')
+            ->select('users.id AS id_user','examens.id AS examen_id','examens.nombre_examen','notas.calificacion')
+            //->distinct()
+            ->get();
+              
+        return view('gestor_planillas.editar_planilla', compact('estudiantes','examenes','notas_estudiantes','id_curso'));
+    }
 
     /**
      * Muestra el formulario para editar la planilla
@@ -231,6 +261,40 @@ class planillaController extends Controller
 
         Session::flash('flash_message', 'Nota ha sido aniadido!');
         return redirect('/gestor_planillas/' .$id_curso. '/planilla/'.$id_user.'/modificar');
+    }
+
+
+     /**
+     * Muestra el formulario para editar la planilla
+     * ->join('notas', 'examens.id', '=', 'notas.examen_id') ->where('user_id', $id_user)
+     * @param  int  $id
+     *
+     * @return void
+     */
+   
+     public function calificar($id_curso,$id_user,$id_examen)
+    {
+            $numero_pre=DB::table('preguntas')->where('examen_id',$id_examen)->where('tipo_pregunta_id', 2)->get();
+            $numero_pre=count($numero_pre);
+            $respuesta_desarrollos= DB::table('examens')
+            ->where('id_cursos', $id_curso)
+            ->where('examens.id', $id_examen)
+            ->where('id_user', $id_user)
+               // ->join('notas', 'examens.id', '=', 'notas.examen_id')           
+            ->join('respuesta_desarrollos', 'examens.id', '=', 'respuesta_desarrollos.examen_id')
+            ->join('preguntas', 'preguntas.id', '=', 'respuesta_desarrollos.pregunta_id')
+            
+            ->select('examens.id AS id_examen','examens.nombre_examen','respuesta_desarrollos.id AS id_resp',
+                'preguntas.nombre_pregunta','preguntas.puntaje_pregunta','respuesta_desarrollos.respuesta',
+           'respuesta_desarrollos.calificacion')
+            ->orderBy('respuesta_desarrollos.id', 'desc')->take($numero_pre)
+            ->get();
+    
+        
+      //  return view('gestor_planillas.editar_nota', compact('nota_estudiante','id_user','id_curso','id_examen'));
+            $mensaje_texto="";
+
+    return view('gestor_examenes.respuesta_desarrollo.create', compact('respuesta_desarrollos','id_user','id_curso','id_examen', 'mensaje_texto'));    
     }
 
 }

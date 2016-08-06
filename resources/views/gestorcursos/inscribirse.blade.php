@@ -38,7 +38,7 @@
         -->
 
         @endif
-        <div class="col-md-14 col-md-offset-0" style="margin-right: -125px;">
+        <div class="col-md-14 col-md-offset-0" style="margin-right: -125px;padding-top:50px;">
             <div class="panel panel-default">
                 <div class="panel-heading">GESTOR DE MATERIAS</div>
 
@@ -62,11 +62,31 @@
                 {{-- */$x++;/* --}}
                   
                 <tr>
+                    
+                    @if($item->estado_curso==1)
                     <td>{{ $x }}</td>
                     <td>{{ $item->nombre }}</td>
-                     <td>
-                             <a href="{{ url('admin/curso_inscrito/create')}}"><span class="logo-lg"><img src="{{asset('/img/img_panelPrincipal/inscribirse.png')}}"/> </span></a>
-                    </td>
+                     {{-- */
+                     $id_user=Auth::id();
+                    $query = DB::table('curso_inscritos')->where('curso_id', $item->id)->where('user_id',$id_user)->first();
+                    $bandera=0;
+                    if(!is_null($query)){
+                        $bandera=1;
+                    }
+
+                     /* --}}
+
+                      @if($bandera)
+                   
+                      <td style="color: #3c8dbc; font: bold;">INSCRITO</td>
+                        
+                       @else
+                         <td>
+                           <a href="{{ url('admin/curso_inscrito/create')}}"><span class="logo-lg"><img src="{{asset('/img/img_panelPrincipal/inscribirse.png')}}"/> </span></a>
+                        </td>
+
+                       @endif
+                    @endif
                 </tr>
 
 
@@ -82,10 +102,14 @@
             {{-- */$x=0;/* --}}
             @foreach($curso as $item)
                 {{-- */$x++;/* --}}
+
                 <tr>
+                 @if($item->estado_curso==1)
                     <td>{{ $x }}</td>
                     <td>{{ $item->nombre }}</td>
+                 @endif
                 </tr>
+
             @endforeach
             </tbody>
         @endif

@@ -23,8 +23,19 @@ class curso_dictaController extends Controller
     public function index()
     {
        // $curso = curso::paginate(15);
+
         $id_user=Auth::id();
-        $lista_objetos = DB::table('curso_dictas')->where('user_id', $id_user)->get();
+
+          $rol_user= DB::table('role_user')
+            ->where('user_id',$id_user)
+            ->join('roles', 'roles.id', '=', 'role_user.role_id')
+            ->select('roles.id','roles.nombre_rol')
+            ->first();
+
+
+             $name_rol=$rol_user->nombre_rol;
+       if ($name_rol=='docente') {
+                $lista_objetos = DB::table('curso_dictas')->where('user_id', $id_user)->get();
         $vector_ids=array();
 
         $contador=0;
@@ -33,16 +44,48 @@ class curso_dictaController extends Controller
             $vector_ids[$contador]=$item->curso_id;
             $contador++;
         }
+
+
         
         $curso=array();
         for ($i=0; $i <count($vector_ids); $i++) { 
+         $fecha = DB::table('cursos')->where('id', $vector_ids[$i])->first();
+         $fecha_actual = date("Y-m-d");
 
-         $objeto_curso = DB::table('cursos')->where('id', $vector_ids[$i])->first();
-         $curso[$i]=$objeto_curso;
+         if($fecha_actual > $fecha->fecha_vencimiento){
+            DB::table('cursos')->where('id', $vector_ids[$i])->update(['estado_curso' => 0]);
+         }  
+         //$objeto_curso = DB::table('cursos')->where('id', $vector_ids[$i])->where('estado_curso', 1)->first();
+        // if(!is_null($objeto_curso)){
+         //  $curso[$i]=$objeto_curso;
+         //}
+        $objeto_curso = DB::table('cursos')->where('id', $vector_ids[$i])->first();
+          $curso[$i]=$objeto_curso;
+    
 
         }
 
         return view('gestorcursos.filtrodocente', compact('curso'));
+       }
+
+
+       elseif ($name_rol=='administrador') {
+
+           $curso= DB::table('curso_dictas')
+            //->where('user_id',$id_user)
+            ->join('cursos', 'cursos.id', '=', 'curso_dictas.curso_id')
+            ->join('users', 'users.id', '=', 'curso_dictas.user_id')
+            ->join('categorias', 'categorias.id', '=', 'cursos.id_categoria')
+            ->select('cursos.id','categorias.nombre AS carrera','cursos.nombre','users.name','users.apellido','cursos.capacidad','cursos.codigo')
+            ->get();
+
+
+        return view('gestorcursos.filtro_admi', compact('curso'));
+           
+       }
+
+
+   
     }
 
     /**
@@ -50,9 +93,11 @@ class curso_dictaController extends Controller
      *
      * @return void
      */
-    public function create()
+    public function create($id_curso)
     {
-        return view('admin.curso_dicta.create');
+        $curso=DB::table('cursos')->where('id',$id_curso)->first();
+        $nombre=$curso->nombre;
+        return view('admin.curso_dicta.create', compact('nombre', 'id_curso'));
     }
 
     /**
@@ -62,13 +107,16 @@ class curso_dictaController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, ['grupo' => 'required', ]);
+        $id_curso=$request->input('id_curso');
+        $fecha=$request->input('fecha_vencimiento');
 
-        curso_dictum::create($request->all());
+        DB::table('cursos')->where('id',$id_curso)->update(array('fecha_vencimiento' => $fecha,'estado_curso'=>1)); 
 
-        Session::flash('flash_message', 'curso_dictum added!');
+        $curso=DB::table('cursos')->where('estado_curso',0)->get();
 
-        return redirect('admin/curso_dicta');
+
+        return view('admin.curso_dicta.index_desabilitados', compact('curso'));
+
     }
 
     /**
@@ -142,4 +190,15 @@ class curso_dictaController extends Controller
     return view('gestorcursos.contenidocurso',compact('id_curso'));
 
     }
+
+    public function cursos_desabilitados(){
+    
+       // $curso=DB::table('cursos')->where('estado_curso',0)->get();
+
+        $curso=DB::table('cursos')->get();
+
+        return view('admin.curso_dicta.index_desabilitados', compact('curso'));
+
+    }
+
 }

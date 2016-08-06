@@ -19,7 +19,7 @@
         </div>
     <!--Termina path de las Listas de contenido del curso.
     -->
-        <div class="col-md-14 col-md-offset-20">
+        <div class="col-md-14 col-md-offset-20" style="padding-top:50px;">
             <div class="panel panel-default">
                 <div class="panel-heading">GESTOR DE MATERIAS</div>
 
@@ -38,7 +38,7 @@
         </div>
     <!--Termina path de Estudiantes Inscritos.
     -->
-    <h2>MIS ESTUDIANTES</h2>
+    <h2 style="padding-top: 20px;">MIS ESTUDIANTES</h2>
     <div class="table" style="width: 97%;">
         <table class="table table-bordered table-striped table-hover">
             <thead>

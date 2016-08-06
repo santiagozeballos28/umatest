@@ -144,6 +144,8 @@ class UserTableSeeder extends Seeder
             'nombre' => 'Taller de Ingenieria de Software',
             'capacidad' => 10,
             'codigo' => 'TIS',
+              'fecha_vencimiento' => '2016-08-09',
+              'estado_curso' => 1,
             'id_categoria' => 1
         ]);
 

@@ -18,7 +18,7 @@
         </div>
     <!--Termina path de crear Materias.
     -->
-        <div class="col-md-14 col-md-offset-0">
+        <div class="col-md-14 col-md-offset-0" style="padding-top:50px;">
             <div class="panel panel-default">
                 <div class="panel-heading">GESTOR MATERIA</div>
 
@@ -33,6 +33,14 @@
 
     <h1>CREAR NUEVA MATERIA</h1>
     <hr/>
+           {{-- */$id_user=Auth::id();   
+             /* --}}
+             {{-- */$id_rol=DB::table('role_user')->where('user_id', $id_user)->first();
+                   $id_rol=$id_rol->role_id;    
+             /* --}}
+             {{-- */$name_rol=DB::table('roles')->where('id', $id_rol)->first();
+                    $name_rol=$name_rol->nombre_rol;
+             /* --}}
 
     {!! Form::open(['url' => '/admin/curso', 'class' => 'form-horizontal']) !!}
 
@@ -48,6 +56,14 @@
                 <div class="col-sm-6">
                     {!! Form::textarea('descripcion', null, ['class' => 'form-control', 'required' => 'required']) !!}
                     {!! $errors->first('descripcion', '<p class="help-block">:message</p>') !!}
+                </div>
+            </div>
+
+        <div class="form-group {{ $errors->has('fecha_vencimiento') ? 'has-error' : ''}}">
+                {!! Form::label('fecha_vencimiento', 'Fecha Vencimiento', ['class' => 'col-sm-3 control-label']) !!}
+                <div class="col-sm-6">
+                    {!! Form::date('fecha_vencimiento', null, ['class' => 'form-control', 'required' => 'required']) !!}
+                    {!! $errors->first('fecha_vencimiento', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
 
@@ -74,6 +90,19 @@
                     {!! $errors->first('id_categoria', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
+
+
+
+
+@if($name_rol=='administrador') 
+             <div class="form-group {{ $errors->has('id_categoria') ? 'has-error' : ''}}">
+                {!! Form::label('user_id', 'Docente', ['class' => 'col-sm-3 control-label']) !!}
+                <div class="col-sm-6">
+                    {!! Form::select('user_id', $docentes, null, ['class' => 'form-control'])!!}
+                    {!! $errors->first('user_id', '<p class="help-block">:message</p>') !!}
+                </div>
+            </div>
+            @endif
 
 
     <div class="form-group">

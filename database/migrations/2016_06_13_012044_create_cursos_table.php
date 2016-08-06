@@ -27,6 +27,8 @@ class CreateCursosTable extends Migration
             $table->text('descripcion');
             $table->integer('capacidad');
             $table->string('codigo');
+            $table->date('fecha_vencimiento');
+            $table->boolean('estado_curso');
             $table->integer('id_categoria')->unsigned();
             $table->foreign('id_categoria')->references('id')->on('categorias')
                 ->onUpdate('cascade')->onDelete('cascade');

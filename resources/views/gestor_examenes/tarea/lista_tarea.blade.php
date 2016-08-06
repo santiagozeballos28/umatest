@@ -17,31 +17,31 @@
                     <li><a href="#"></i>Contenido del Curso</a></li>
                     </ol>
         </div>
-    <!--Termina path de enviar tarea.
+    <!--Termina path de contenido del curso.
     -->
-        <div class="col-md-14 col-md-offset-0">
+        <div class="col-md-14 col-md-offset-0" style="padding-top:50px;">
             <div class="panel panel-default">
                 <div class="panel-heading">GESTOR DE TAREAS</div>
 
                 <div class="panel-body">
 <div class="container">
-<!--Comienza path de enviar tarea.
+<!--Comienza path de mis tarea.
     -->
     <div class="col-md-14 col-md-offset-0 borderpath" style="width: 17%;margin-left: 0%;">
                     <ol class="breadcrumb">
                     <li><a href="{{ url('admin/curso_dicta/'.$id_curso.'/vista_contenido_curso') }}"><i class="fa fa-dashboard"></i>Principal</a></li>
-                    <li><a href="#"></i>Nueva Tarea</a></li>
+                    <li><a href="#"></i>Tareas</a></li>
                     </ol>
         </div>
-    <!--Termina path que muestra todas las tareas de un docente y permite crear una nueva tarea.
+    <!--Termina path de mis tarea.
     -->
 
-    <h2> Tareas <a href="{{url('/gestor_examenes/'.$id_curso.'/tarea/create')}}" class="btn btn-primary btn-xs" title="Añadir Nuevo Tarea"><span class="glyphicon glyphicon-plus" aria-hidden="true"></a></h2>
+    <h2 style="padding-top:20px;"> Tareas <a href="{{url('/gestor_examenes/'.$id_curso.'/tarea/create')}}" class="btn btn-primary btn-xs" title="Añadir Nuevo Tarea"><span class="glyphicon glyphicon-plus" aria-hidden="true"></a></h2>
     <div class="table">
         <table class="table table-bordered table-striped table-hover">
             <thead>
                 <tr>
-                    <th>S.No</th><th> {{ trans('tarea.nombre_tarea') }} </th><th> {{ trans('tarea.descripcion') }} </th><th> {{ trans('tarea.archivo') }} </th><th>Fecha de creacion</th><th>Enviar Tarea</th><th>Actions</th>
+                    <th>S.No</th><th> {{ trans('tarea.nombre_tarea') }} </th><th> {{ trans('tarea.descripcion') }} </th><th> {{ trans('tarea.archivo') }} </th><th>Fecha de creacion</th><th>Enviar Tarea</th><th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -54,7 +54,7 @@
                     <td>
                     <li><a href="{{url('/gestor_examenes/enviar/'.$id_curso.'/'.$item->id.'/create')}}"><i class="fa fa-envelope-o"></i> Enviar Tarea</a></li>
 
-                    </td>>
+                    </td>
                     <td>
                         <a href="{{ url('/gestor_examenes/tarea/' . $item->id) }}" class="btn btn-success btn-xs" title="Ver Tarea"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"/></a>
 

@@ -42,7 +42,7 @@
               <!--Termina path de las Listas de contenido del curso desde docente.
            -->
         @endif
-        <div class="col-md-14 col-md-offset-0">
+        <div class="col-md-14 col-md-offset-0" style="padding-top:50px;">
             <div class="panel panel-default">
                 <div class="panel-heading">GESTOR DE TAREAS</div>
 
@@ -58,7 +58,7 @@
         </div>
     <!--Termina path de lista de tareas de estudiantes.
     -->
-     <h2>Mis Tareas <a href="#"></a></h2>
+     <h2 style="padding-top: 20px;">Mis Tareas <a href="#"></a></h2>
   
 
 

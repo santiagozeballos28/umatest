@@ -22,7 +22,7 @@
         <table class="table table-bordered table-striped table-hover">
             <thead>
                 <tr>
-                    <th>S.No</th><th> {{ trans('curso.nombre') }} </th><th>Numero de Alumnos</th><th> {{ trans('curso.codigo') }} </th><th>Actions</th>
+                    <th>S.No</th><th> {{ trans('curso.nombre') }} </th><th>Numero de Alumnos</th><th> {{ trans('curso.codigo') }} </th><th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -33,17 +33,17 @@
                     <td>{{ $x }}</td>
                     <td>{{ $item->nombre }}</td><td>{{ $item->capacidad }}</td><td>{{ $item->codigo }}</td>
                     <td>
-                        <a href="{{ url('/admin/curso/' . $item->id) }}" class="btn btn-success btn-xs" title="Ver Curso"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"/></a>
-                        <a href="{{ url('/admin/curso/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs" title="Editar Curso"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
+                        <a href="{{ url('/admin/curso/' . $item->id) }}" class="btn btn-success btn-xs" title="Ver Materia"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"/></a>
+                        <a href="{{ url('/admin/curso/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs" title="Editar Materia"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
                         {!! Form::open([
                             'method'=>'DELETE',
                             'url' => ['/admin/curso', $item->id],
                             'style' => 'display:inline'
                         ]) !!}
-                            {!! Form::button('<span class="glyphicon glyphicon-trash" aria-hidden="true" title="Eliminar Curso" />', array(
+                            {!! Form::button('<span class="glyphicon glyphicon-trash" aria-hidden="true" title="Eliminar Materia" />', array(
                                     'type' => 'submit',
                                     'class' => 'btn btn-danger btn-xs',
-                                    'title' => 'Eliminar Curso',
+                                    'title' => 'Eliminar Materia',
                                     'onclick'=>'return confirm("Esta seguro de eliminar?")'
                             ));!!}
                         {!! Form::close() !!}

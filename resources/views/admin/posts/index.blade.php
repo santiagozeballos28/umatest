@@ -22,7 +22,7 @@
         <table class="table table-bordered table-striped table-hover">
             <thead>
                 <tr>
-                    <th>S.No</th><th> {{ trans('posts.title') }} </th><th> {{ trans('posts.body') }} </th><th>Actions</th>
+                    <th>S.No</th><th> {{ trans('posts.title') }} </th><th> {{ trans('posts.body') }} </th><th>Acciones</th>
                 </tr>
             </thead>
             <tbody>

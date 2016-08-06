@@ -52,7 +52,7 @@
                 <ul class="treeview-menu">
                     <li><a href="{{ url('admin/users') }}">Estudiantes</a></li>
                     <li><a href="{{ url('admin/docente') }}">Docentes</a></li>
-                    <li><a href="{{ url('admin/administrador') }}">Administrador</a></li>
+                    
                 </ul>
                    </li>
 
@@ -72,7 +72,12 @@
                 <a href="#"><i class='fa fa-user'></i> <span>Gestor Materias Docente</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
                     <li><a href="{{ url('admin/curso/create') }}">Crear Materia</a></li>
-                    <li><a href="{{ url('admin/curso_dicta') }}">Mis Materias</a></li>
+
+                    <li><a href="{{ url('admin/curso_dicta') }}">Todos los Materias</a></li>
+
+                   
+                    <li><a href="{{ url('admin/desabilitados') }}">Estado Materias</a></li>
+
                 </ul>
                     </li>
 
@@ -102,11 +107,10 @@
                   <li class="treeview">
                 <a href="#"><i class='fa fa-user'></i> <span>Bitacoras</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
-                    <li><a href="{{ url('/bitacora_curso') }}">Bitacora Curso</a></li>
+                   
 
-                      <li><a href="{{ url('/bitacora_examen') }}">Bitacora Examen</a></li>
-
-                      <li><a href="{{ url('/bitacora_tarea') }}">Bitacora Tarea</a></li>
+                      <li><a href="{{ url('/bitacora_examen') }}">Mis Bitacoras</a></li>
+     
                     
                 </ul>
                  </li>

@@ -6,7 +6,39 @@
 @section('main-content')
 <div class="container">
     <div class="row">
-        <div class="col-md-14 col-md-offset-0">
+ {{-- */$id_user_actual=Auth::id(); /* --}}
+ {{-- */$id_rol=DB::table('role_user')->where('user_id', $id_user_actual)->first();
+  $id_rol=$id_rol->role_id;    
+   /* --}}
+  {{-- */$name_rol=DB::table('roles')->where('id', $id_rol)->first();
+  $name_rol=$name_rol->nombre_rol;
+   /* --}}
+             @if ($name_rol!="estudiante")
+                 <!--Comienza path de contenido del curso.
+                   -->
+                 <div class="col-md-14 col-md-offset-0 borderpath" style="width: 34%;margin-left: 0%;">
+                    <ol class="breadcrumb">
+                    <li><a href="{{ url('/home') }}"><i class="fa fa-dashboard"></i>Gestor Materias</a></li>
+                    <li><a href="{{ url('/admin/curso_dicta') }}"><i class="fa fa-dashboard"></i>Materias</a></li>
+                    <li><a href="#"></i>Contenido del Curso</a></li>
+                    </ol>
+                </div>
+               <!--Termina path de las Listas de contenido del curso.
+                -->
+             @else
+               <!--Comienza path de contenido del curso desde estudiante.
+                -->
+                <div class="col-md-14 col-md-offset-0 borderpath" style="width: 34%;margin-left: 0%;">
+                    <ol class="breadcrumb">
+                    <li><a href="{{ url('/home') }}"><i class="fa fa-dashboard"></i>Gestor Materias</a></li>
+                    <li><a href="{{ url('admin/curso/index_todo/todo')}}"><i class="fa fa-dashboard"></i>Materias</a></li>
+                    <li><a href="#"></i>Contenido del Curso</a></li>
+                    </ol>
+               </div>
+            <!--Termina path de contenido del curso desde estudiante.
+            -->
+             @endif
+        <div class="col-md-14 col-md-offset-0" style="padding-top:50px;">
             <div class="panel panel-default">
                 <div class="panel-heading">GESTOR FORO</div>
                   <div class="panel-body">
@@ -14,8 +46,18 @@
 
 
 <div class="container">
-
-    <h2>Comentarios </h2>
+<!--Comienza path de comentario de foros.
+    -->
+    <div class="col-md-14 col-md-offset-0 borderpath" style="width: 17%;margin-left: 0%;">
+                    <ol class="breadcrumb">
+                    <li><a href="{{ url('admin/curso_dicta/'.$id_curso.'/vista_contenido_curso') }}"><i class="fa fa-dashboard"></i>Principal</a></li>
+                    <li><a href="{{ url('gestor_foros/'.$id_curso.'/foro') }}"><i class="fa fa-dashboard"></i>Foros</a></li>
+                    <li><a href="#"></i>Comentarios del Foro</a></li>
+                    </ol>
+        </div>
+    <!--Termina path comentario de foros
+    -->
+    <h2 style="padding-top:20px;">Comentarios </h2>
 
    
     <div class="table">
@@ -27,14 +69,6 @@
 
  <tbody>
 
-
- {{-- */$id_user_actual=Auth::id(); /* --}}
- {{-- */$id_rol=DB::table('role_user')->where('user_id', $id_user_actual)->first();
-  $id_rol=$id_rol->role_id;    
-   /* --}}
-  {{-- */$name_rol=DB::table('roles')->where('id', $id_rol)->first();
-  $name_rol=$name_rol->nombre_rol;
-   /* --}}
 
  @foreach($foro as $item)
 {{-- */$id_foro_actual=$item->id_foro; /* --}}

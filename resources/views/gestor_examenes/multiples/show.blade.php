@@ -19,7 +19,7 @@
         </div>
     <!--Termina path de las Listas de contenido del curso.
     -->
-        <div class="col-md-14 col-md-offset-0">
+        <div class="col-md-14 col-md-offset-0" style="padding-top:50px;">
             <div class="panel panel-default">
                 <div class="panel-heading">GESTOR MATERIA</div>
 
@@ -44,7 +44,7 @@
         </div>
     <!--Termina path Ver EDITAR Respuestas a preguntas de seleccion multiples.  
     -->
-    <h1>Simples</h1>
+    <h1 style="padding-top: 20px;">Multiples Simples</h1>
     <div class="table-responsive">
         <table class="table table-bordered table-striped table-hover">
             <tbody>
@@ -57,7 +57,7 @@
                 <tr>
                     <td colspan="2">
                            <a href="{{ url('/gestor_examenes/multiples/' . $multiple->id . '/'.$id_pregunta.'/edit') }}" class="btn btn-primary btn-xs" title="Editar Multiple"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
-                       <a href="{{ url('/gestor_examenes/multiples/' . $multiple->id . '/'.$id_pregunta.'/delete') }}" class="btn btn-danger btn-xs" title="Eliminar Multiple" onclick="myfuncion()"><span class="glyphicon glyphicon-trash" aria-hidden="true" title="Eliminar Multiple" /></a>
+                       <a href="{{ url('/gestor_examenes/multiples/' . $multiple->id . '/'.$id_pregunta.'/delete') }}" class="btn btn-danger btn-xs" title="Eliminar Multiple" onclick="return myfuncion()"><span class="glyphicon glyphicon-trash" aria-hidden="true" title="Eliminar Multiple" /></a>
                     </td>
                 </tr>
             </tfoot>

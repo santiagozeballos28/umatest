@@ -19,7 +19,7 @@
         </div>
     <!--Termina path de las Listas de contenido del curso.
     -->
-        <div class="col-md-14 col-md-offset-0">
+        <div class="col-md-14 col-md-offset-0" style="padding-top:50px;">
             <div class="panel panel-default">
                 <div class="panel-heading">GESTOR MATERIA</div>
 
@@ -45,13 +45,13 @@
         </div>
     <!--Termina path para VER de Respuesta a preguntas de seleccion multiples.  
     -->
-    <h1>Simples<a href="{{ url('/gestor_examenes/multiples/'.$id_pregunta.'/create') }}" class="btn btn-primary btn-xs" title="Añadir Nuevo Multiple"><span class="glyphicon glyphicon-plus" aria-hidden="true"/></a></h1>
+    <h1 style="padding-top: 20px;">Simples<a href="{{ url('/gestor_examenes/multiples/'.$id_pregunta.'/create') }}" class="btn btn-primary btn-xs" title="Añadir Nuevo Multiple"><span class="glyphicon glyphicon-plus" aria-hidden="true"/></a></h1>
       <li style="text-align: center; color: red;">Solamente debe exisitir una respuesta correcta</li>
     <div class="table">
         <table class="table table-bordered table-striped table-hover">
             <thead>
                 <tr>
-                    <th>S.No</th><th> {{ trans('multiples.respuesta') }} </th><th> {{ trans('multiples.correcta') }} </th><th>Actions</th>
+                    <th>S.No</th><th> {{ trans('multiples.respuesta') }} </th><th> {{ trans('multiples.correcta') }} </th><th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -69,7 +69,7 @@
                     <td>
                         <a href="{{ url('/gestor_examenes/multiples/' . $item->id . '/'.$id_pregunta.'/show') }}" class="btn btn-success btn-xs" title="Ver Multiple"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"/></a>
                         <a href="{{ url('/gestor_examenes/multiples/' . $item->id . '/'.$id_pregunta.'/edit') }}" class="btn btn-primary btn-xs" title="Editar Multiple"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
-                        <a href="{{ url('/gestor_examenes/multiples/' . $item->id . '/'.$id_pregunta.'/delete') }}" class="btn btn-danger btn-xs" title="Eliminar Multiple" onclick="myfuncion()"><span class="glyphicon glyphicon-trash" aria-hidden="true" title="Eliminar Multiple" /></a>
+                        <a href="{{ url('/gestor_examenes/multiples/' . $item->id . '/'.$id_pregunta.'/delete') }}" class="btn btn-danger btn-xs" title="Eliminar Multiple" onclick="return myfuncion()"><span class="glyphicon glyphicon-trash" aria-hidden="true" title="Eliminar Multiple" /></a>
                     </td>
                 </tr>
             @endforeach

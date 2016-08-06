@@ -68,9 +68,9 @@ public function store(CreateInvestigationRequest $request)
      */
     public function store(Request $request)
     {
-        $this->validate($request, ['nombre_tarea' => 'required', 'descripcion','fecha_creacion','puntaje_total',]);
+        $this->validate($request, ['nombre_tarea' => 'required', 'descripcion','puntaje_total',]);
         $id_curso=$request->input('id_curso');
-       // $tipo=$request->input('tipo');
+        // $tipo=$request->input('tipo');
         $fecha_actual = date("Y-m-d H:i:s");
 
       if (!empty($_FILES)) {
@@ -92,40 +92,54 @@ public function store(CreateInvestigationRequest $request)
           'puntaje_total' => $request->input('puntaje_total'),'id_cursos'=> $request->input('id_curso')]
          );
 
-         //store procedure
+                //store procedure
             $nombre_tarea = $request->input('nombre_tarea');
             $descripcion = $request->input('descripcion');
-            $fecha_creacion= $fecha_actual;
-            $puntaje_total= $request->input('puntaje_total');
-            $id_curso= $request->input('id_curso');
+            $fecha_creacion = $fecha_actual;
+            $puntaje_total=$request->input('puntaje_total');
+            $nombre_curso=DB::table('cursos')->where('id', $request->input('id_curso'))->first();
+
+            $dato_nuevo=$nombre_tarea.'#'.$descripcion.'#'.$fecha_creacion.'#'.$puntaje_total.'#'.$nombre_curso->nombre;//1
+            $dato_viejo="";//2
+            $nombre_maq = gethostname(); $ip = gethostbyname($nombre_maq);//3
+            $nombre_tabla="tareas";//4
+            $fecha_a = date("Y-m-d H:i:s");//5
+            $accion_a='create';//6
             $id_user=Auth::id();
             $usuario= DB::table('users')->where('id', $id_user)->first();
-            $nombre_usuario = $usuario->name.' '.$usuario->apellido;
-            $fecha_a = date("Y-m-d H:i:s");
-            $accion_a='create';
-            $id_bi=0;
+            $nombre_usuario = $usuario->name.' '.$usuario->apellido;//7
+            $id_bi=0;//8
 
-            DB::select('CALL PA_tarea(?,?,?,?,?,?,?,?,?)', array($nombre_tarea, $descripcion, $fecha_creacion, $puntaje_total,$id_curso,$nombre_usuario ,$fecha_a, $accion_a, $id_bi));
+            DB::select('CALL Bitacora(?,?,?,?,?,?,?,?)', array($dato_nuevo, $dato_viejo, $ip, 
+                $nombre_tabla, $fecha_a, $accion_a, $nombre_usuario, $id_bi));
+              //fin procedure
 
          }else{
-
              DB::table('tareas')->insert(['nombre_tarea' => $request->input('nombre_tarea'), 'descripcion' => $request->input('descripcion'),'fecha_creacion' => $fecha_actual,
           'puntaje_total' => $request->input('puntaje_total'),'id_cursos'=> $request->input('id_curso')]
          );
-                      //store procedure
+                 
+                //store procedure
             $nombre_tarea = $request->input('nombre_tarea');
             $descripcion = $request->input('descripcion');
-            $fecha_creacion= $fecha_actual;
-            $puntaje_total= $request->input('puntaje_total');
-            $id_curso= $request->input('id_curso');
-            $id_user=Auth::id();
-            $usuario= DB::table('users')->where('id', $id_user)->first();
-            $nombre_usuario = $usuario->name.' '.$usuario->apellido;
-            $fecha_a = date("Y-m-d H:i:s");
-            $accion_a='create';
-            $id_bi=0;
+            $fecha_creacion = $fecha_actual;
+            $puntaje_total=$request->input('puntaje_total');
+            $nombre_curso=DB::table('cursos')->where('id', $request->input('id_curso'))->first();
 
-         DB::select('CALL PA_tarea(?,?,?,?,?,?,?,?,?)', array($nombre_tarea, $descripcion, $fecha_creacion, $puntaje_total,$id_curso,$nombre_usuario ,$fecha_a, $accion_a, $id_bi));
+            $dato_nuevo=$nombre_tarea.'#'.$descripcion.'#'.$fecha_creacion.'#'.$puntaje_total.'#'.$nombre_curso->nombre;//1
+            $dato_viejo="";//2
+            $nombre_maq = gethostname(); $ip = gethostbyname($nombre_maq);//3
+            $nombre_tabla="tareas";//4
+            $fecha_a = date("Y-m-d H:i:s");//5
+            $accion_a='create';//6
+             $id_user=Auth::id();
+            $usuario= DB::table('users')->where('id', $id_user)->first();
+            $nombre_usuario = $usuario->name.' '.$usuario->apellido;//7
+            $id_bi=0;//8
+
+            DB::select('CALL Bitacora(?,?,?,?,?,?,?,?)', array($dato_nuevo, $dato_viejo, $ip, 
+                $nombre_tabla, $fecha_a, $accion_a, $nombre_usuario, $id_bi));
+              //fin procedure
 
          }
         }
@@ -192,41 +206,10 @@ public function store(CreateInvestigationRequest $request)
     public function updatenooo($id, Request $request)
     {
         $this->validate($request, ['nombre_tarea' => 'required', 'descripcion', 'archivo' , 'puntaje_total', ]);
-         $tareas= DB::table('tareas')->where('id', $id)->first();
-           //store procedure
-            $nombre_tarea = $tareas->nombre_tarea;
-            $descripcion = $tareas->descripcion;
-            $fecha_creacion= $tareas->fecha_creacion;
-            $puntaje_total= $tareas->puntaje_total;
-            $id_curso= $tareas->id_cursos;
-            $id_user=Auth::id();
-            $usuario= DB::table('users')->where('id', $id_user)->first();
-            $nombre_usuario = $usuario->name.' '.$usuario->apellido;
-            $fecha_a = date("Y-m-d H:i:s");
-            $accion_a='update';
-            $id_bi=0;
-
-         DB::select('CALL PA_tarea(?,?,?,?,?,?,?,?,?)', array($nombre_tarea, $descripcion, $fecha_creacion, $puntaje_total,$id_curso,$nombre_usuario ,$fecha_a, $accion_a, $id_bi));
+        
 
         $tarea = tarea::findOrFail($id);
         $tarea->update($request->all());
-
-         $recurso= DB::table('bitacora_tareas')->where('usuario', $nombre_usuario)->where('fecha', $fecha_a)->first();
-           $recurso=$recurso->id;
-          
-            $nombre_tarea = $request->input('nombre_tarea');
-            $descripcion = $request->input('descripcion');
-            $fecha_creacion= date("Y-m-d H:i:s");
-            $puntaje_total= $request->input('puntaje_total');
-            $id_curso= $request->input('id_curso');
-            $id_user=Auth::id();
-            $usuario= DB::table('users')->where('id', $id_user)->first();
-            $nombre_usuario = $usuario->name.' '.$usuario->apellido;
-            $fecha_a = date("Y-m-d H:i:s");
-            $accion_a='update';
-            $id_bi=$recurso;
-
-         DB::select('CALL PA_tarea(?,?,?,?,?,?,?,?,?)', array($nombre_tarea, $descripcion, $fecha_creacion, $puntaje_total,$id_curso,$nombre_usuario ,$fecha_a, $accion_a, $id_bi));
 
         
        $id_curso=$request->input('id_curso');
@@ -271,24 +254,6 @@ public function update($id,Request $request)
            'id_cursos'=> $request->input('id_curso')
                 ]);
 
-
-      
-
-         //store procedure
-         //   $nombre_tarea = $request->input('nombre_tarea');
-         //   $descripcion = $request->input('descripcion');
-         //   $fecha_creacion= $fecha_actual;
-         //   $puntaje_total= $request->input('puntaje_total');
-         //   $id_curso= $request->input('id_curso');
-         //   $id_user=Auth::id();
-         //   $usuario= DB::table('users')->where('id', $id_user)->first();
-         //   $nombre_usuario = $usuario->name.' '.$usuario->apellido;
-         //   $fecha_a = date("Y-m-d H:i:s");
-         //   $accion_a='create';
-         //   $id_bi=0;
-
-         //   DB::select('CALL PA_tarea(?,?,?,?,?,?,?,?,?)', array($nombre_tarea, $descripcion, $fecha_creacion, $puntaje_total,$id_curso,$nombre_usuario ,$fecha_a, $accion_a, $id_bi));
-
          }else{
 
            //  DB::table('tareas')->insert(['nombre_tarea' => $request->input('nombre_tarea'), 'descripcion' => $request->input('descripcion'),'fecha_creacion' => $fecha_actual,
@@ -302,24 +267,50 @@ public function update($id,Request $request)
            'id_cursos'=> $request->input('id_curso')
                 ]);
 
-
-
-                      //store procedure
-         //   $nombre_tarea = $request->input('nombre_tarea');
-         //   $descripcion = $request->input('descripcion');
-         //   $fecha_creacion= $fecha_actual;
-         //   $puntaje_total= $request->input('puntaje_total');
-         //   $id_curso= $request->input('id_curso');
-         //   $id_user=Auth::id();
-         //   $usuario= DB::table('users')->where('id', $id_user)->first();
-         //   $nombre_usuario = $usuario->name.' '.$usuario->apellido;
-         //   $fecha_a = date("Y-m-d H:i:s");
-         //   $accion_a='create';
-         //   $id_bi=0;
-
-        // DB::select('CALL PA_tarea(?,?,?,?,?,?,?,?,?)', array($nombre_tarea, $descripcion, $fecha_creacion, $puntaje_total,$id_curso,$nombre_usuario ,$fecha_a, $accion_a, $id_bi));
-
          }
+
+           $tarea= DB::table('tareas')->where('id', $id)->first();
+
+        //store procedure
+            $nombre_tarea = $tarea->nombre_tarea;
+            $descripcion = $tarea->descripcion;
+            $fecha_creacion= $tarea->fecha_creacion;
+            $puntaje_total= $tarea->puntaje_total;
+            $nombre_curso=DB::table('cursos')->where('id', $tarea->id_cursos)->first();
+            $dato_nuevo="";//1
+            $dato_viejo=$nombre_tarea.'#'.$descripcion.'#'.$fecha_creacion.'#'.$puntaje_total.'#'.$nombre_curso->nombre;//2
+            $nombre_maq = gethostname(); $ip = gethostbyname($nombre_maq);//3
+            $nombre_tabla="tareas";//4
+            $fecha_a = date("Y-m-d H:i:s");//5
+            $accion_a='update';//6
+            $id_user=Auth::id();
+            $usuario= DB::table('users')->where('id', $id_user)->first();
+            $nombre_usuario = $usuario->name.' '.$usuario->apellido;//7
+            $id_bi=0;//8
+
+            DB::select('CALL Bitacora(?,?,?,?,?,?,?,?)', array($dato_nuevo, $dato_viejo, $ip, 
+                $nombre_tabla, $fecha_a, $accion_a, $nombre_usuario, $id_bi));
+        //fin procedure
+         
+           $recurso= DB::table('bitacora_examenes')->where('usuario_bi', $nombre_usuario)->where('fecha_bi', $fecha_a)->first();
+           $recurso=$recurso->id;
+
+        //store procedure
+            $nombre_tarea = $request->input('nombre_tarea');
+            $descripcion = $request->input('descripcion');
+            $fecha_creacion = $fecha_actual;
+            $puntaje_total=$request->input('puntaje_total');
+            $nombre_curso=DB::table('cursos')->where('id', $request->input('id_curso'))->first();
+
+            $dato_nuevo=$nombre_tarea.'#'.$descripcion.'#'.$fecha_creacion.'#'.$puntaje_total.'#'.$nombre_curso->nombre;//1
+            $dato_viejo="";//2
+            $accion_a='updaten';//6
+            $id_bi=$recurso;//8
+
+            DB::select('CALL Bitacora(?,?,?,?,?,?,?,?)', array($dato_nuevo, $dato_viejo, $ip, 
+                $nombre_tabla, $fecha_a, $accion_a, $nombre_usuario, $id_bi));
+              //fin procedure
+          
         }
 
         $tarea = DB::table('tareas')->where('id_cursos', $id_curso)->get();
@@ -349,20 +340,28 @@ public function update($id,Request $request)
     public function destroy($id_curso,$id_tarea)
     {
         $tarea= DB::table('tareas')->where('id', $id_tarea)->first();
-           //store procedure
+
+        //store procedure
             $nombre_tarea = $tarea->nombre_tarea;
             $descripcion = $tarea->descripcion;
             $fecha_creacion= $tarea->fecha_creacion;
             $puntaje_total= $tarea->puntaje_total;
-            $id_curso= $tarea->id_cursos;
+            $nombre_curso=DB::table('cursos')->where('id', $tarea->id_cursos)->first();
+            $dato_nuevo="";//1
+            $dato_viejo=$nombre_tarea.'#'.$descripcion.'#'.$fecha_creacion.'#'.$puntaje_total.'#'.$nombre_curso->nombre;//2
+            $nombre_maq = gethostname(); $ip = gethostbyname($nombre_maq);//3
+            $nombre_tabla="tareas";//4
+            $fecha_a = date("Y-m-d H:i:s");//5
+            $accion_a='delete';//6
             $id_user=Auth::id();
             $usuario= DB::table('users')->where('id', $id_user)->first();
-            $nombre_usuario = $usuario->name.' '.$usuario->apellido;
-            $fecha_a = date("Y-m-d H:i:s");
-            $accion_a='delete';
-            $id_bi=0;
+            $nombre_usuario = $usuario->name.' '.$usuario->apellido;//7
+            $id_bi=0;//8
 
-         DB::select('CALL PA_tarea(?,?,?,?,?,?,?,?,?)', array($nombre_tarea, $descripcion, $fecha_creacion, $puntaje_total,$id_curso,$nombre_usuario ,$fecha_a, $accion_a, $id_bi));
+            DB::select('CALL Bitacora(?,?,?,?,?,?,?,?)', array($dato_nuevo, $dato_viejo, $ip, 
+                $nombre_tabla, $fecha_a, $accion_a, $nombre_usuario, $id_bi));
+        //fin procedure
+
         tarea::destroy($id_tarea);
 
         Session::flash('flash_message', 'tarea deleted!');

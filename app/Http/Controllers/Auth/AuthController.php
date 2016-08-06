@@ -46,10 +46,10 @@ class AuthController extends Controller
             'name' => 'required|max:255|alpha',
             'apellido' => 'required|max:255|alpha',
             'direccion' => 'required|max:255',
-            'telefono' => 'required|numeric|unique:users|between:60000000,79999999',
+            'telefono' => 'required|numeric|unique:users|between:1000000,79999999',
             'genero' => 'required|max:1',
             'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|confirmed|min:6',
+            'password' => 'required|confirmed|min:8',
         ]);
     }
 

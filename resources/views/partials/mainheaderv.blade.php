@@ -29,7 +29,7 @@
              <li class="active"><a href="{{ url('/vision_v') }}">Visión<span class="sr-only">(current)</span></a></li>
             
 
-             <li class="active"><a href="{{ url('/contactos_v') }}">Contactos<span class="sr-only">(current)</span></a></li>
+             <!--li class="active"><a href="{{ url('/contactos_v') }}">Contactos<span class="sr-only">(current)</span></a></li-->
              <li class="active"><a id="ayuda" href="{{ url('/ayuda_v') }}">Ayuda<span class="sr-only">(current)</span></a></li>
         
         

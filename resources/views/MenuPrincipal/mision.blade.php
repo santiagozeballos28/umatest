@@ -19,9 +19,9 @@
         </div>
     <!--Termina path de Misión
     -->
-        <div class="col-md-14 col-md-offset-0">
+        <div class="col-md-14 col-md-offset-0" style="padding-top:50px;">
             <div class="panel panel-default">
-                <div class="panel-heading"><h4>Misión de la carrera de sistemas </h4></div>
+                <div class="panel-heading"><h4>Misión de la Facultad de Ciencias y Tecnologia </h4></div>
 
                 <div class="panel-body">
         <div class="container">
@@ -33,10 +33,7 @@
                   </div-->
                   <div style="margin-left: 50px;">
                   <!--h1>Misión de la carrera de sistemas </h1-->
-                  <br><p>Formar profesionales a nivel de licenciatura con sólida formación ética y 
-                  cultural, comprometidos con los cambios tecnológicos, científicos y humanísticos, 
-                  aportando constantemente al mejoramiento y creación de técnicas y métodos de los 
-                  sistemas computacionales.</p>
+                  <br><p>La Facultad de Ciencias y Tecnología de la UMSS es una comunidad académica, autónoma, pública, intercultural e interdisciplinaria que forma recursos de alta calidad, generando conocimientos, realizando servicios especializados en ciencias y tecnología.</p>
                   </div>
       
             </div>

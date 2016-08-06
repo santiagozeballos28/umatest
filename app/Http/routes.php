@@ -15,25 +15,7 @@
  // return view('welcome');
 //});
 
-/*Route::get('pdf', function(){
-    $fpdf = new Fpdf();
-        $fpdf->AddPage();
-        $fpdf->SetFont('Arial','B',16);
-        $fpdf->Cell(40,10,'Hello World!');
-        $fpdf->Output();
-        exit;
 
-});
-Route::get('pdf2', function(){
-
-        Fpdf::AddPage();
-        Fpdf::SetFont('Arial','B',16);
-        Fpdf::Cell(40,10,'Hello World!');
-        Fpdf::Output();
-        exit;
-
-);
-*/
 
 
 Route::resource('admin/posts', 'Admin\\PostsController');
@@ -105,6 +87,11 @@ Route::get('admin/carreras/{id}/habilitar', 'Admin\\categoriaController@habilita
 
 
 Route::resource('admin/curso_dicta', 'Admin\\curso_dictaController');
+
+Route::get('admin/desabilitados', 'Admin\\curso_dictaController@cursos_desabilitados');
+
+Route::get('admin/desabilitados/{id_curso}/habilitar', 'Admin\\curso_dictaController@create');
+
 Route::resource('admin/curso_inscrito', 'Admin\\curso_inscritoController');
 /*
  esta ruta viene despues de prsionar inscribirce en un curso, y luego lista todas las carreras
@@ -276,7 +263,7 @@ Route::get('gestor_examenes/examen/{id_curso}/create', 'gestor_examenes\\examenC
 esta ruta nos llega del contenido del curso para crear nuevo examen(ojo primero lista)
 gestor_examenes/'.$id_curso.'/examen
 */
-Route::get('gestor_examenes/{id_curso}/examen_envio', 'gestor_examenes\\examenController@index');
+//Route::get('gestor_examenes/{id_curso}/examen_envio', 'gestor_examenes\\examenController@index');
 
 Route::get('gestor_examenes/{id_curso}/examen', 'gestor_examenes\\examenController@listar');
 /*
@@ -375,10 +362,6 @@ Route::resource('admin/enviado', 'gestor_examenes\\enviadoController');
 
 //INICIO DE RUTAS BITACORAS
 
-Route::get('/bitacora_curso', 'bitacoraController@bitacora_curso');
-
-Route::get('/bitacora_tarea', 'bitacoraController@bitacora_tarea');
-
 Route::get('/bitacora_examen', 'bitacoraController@bitacora_examen');
 //FIN DE RUTAS BITACORAS
 
@@ -473,6 +456,18 @@ Route::post('/gestor_examenes/{id_curso}/archivo/{id}/upload','gestor_examenes\\
 
 Route::resource('admin/notificacion', 'Admin\\notificacionController');
 
+/*
+NOta tareas recividos
+*/
+/*
+* Esta ruta viene despues presinar tareas recibidos
+* parametro1@ id del curso
+* parametro1@ tipo de evento(crear tarea/ Mis tareas)
+* url('gestor_examenes/'.$id_curso.'/tareas/recibidos') 
+*/
+Route::get('gestor_examenes/{id_curso}/tareas/recibidos/estudiantes','gestor_examenes\\entregadoController@index');
+
+
 
 /*
 NOTA.- Apartir de esta instruccion solo se debe aniadir planillas
@@ -497,7 +492,7 @@ Route::get('/gestor_planillas/{id_curso}/planilla/{id_user}/modificar','gestor_p
 * parametro1@ id del ususario
 * url('/gestor_planilla/'.$id_curso.'/planilla/' . $item->id_user . '/edit') 
 */
-Route::get('/gestor_planillas/{id_curso}/modificar/varios','gestor_planillas\\planillaController@modificar_varios');
+Route::get('/gestor_planillas/{id_curso}/modificar/varios','gestor_planillas\\planillaController@modificar_notas');
 
 /*
 * Esta ruta viene despues presinar en gestor planilla, el boton editar
@@ -505,7 +500,25 @@ Route::get('/gestor_planillas/{id_curso}/modificar/varios','gestor_planillas\\pl
 * parametro1@ id del ususario
 * url('/gestor_planilla/'.$id_curso.'/planilla/' . $item->id_user . '/edit') 
 */
-Route::get('/gestor_planillas/{id_curso}/planilla/{id_user}/{id_examen}/edit', 'gestor_planillas\\planillaController@edit');
+Route::get('/gestor_planillas/{id_curso}/planilla/{id_user}/{id_examen}/calificar', 'gestor_planillas\\planillaController@calificar');
+
+/*
+* Esta ruta viene despues actulazar , de la vsita de modificar notas
+* donde se muestra las preguntas y las respuestas para lugo calificar
+* parametro1@ id del curso
+* parametro1@ id del ususario
+* '/gestor_examenes/respuesta_desarrollo/insertar/nota'
+*/
+//Route::get('/lala/respuesta_desarrollo/insertar/nota','gestor_examenes\\
+   // respuesta_desarrolloController@actualizar_nota');
+
+/*
+* Esta ruta viene despues presinar en gestor planilla, el boton editar
+* parametro1@ id del curso
+* parametro1@ id del ususario
+* url('/gestor_planilla/'.$id_curso.'/planilla/' . $item->id_user . '/edit') 
+*/
+//Route::get('/gestor_planillas/{id_curso}/planilla/{id_user}/{id_examen}/edit', 'gestor_planillas\\planillaController@edit');
 
 ///gestor_planillas/planilla
 Route::resource('gestor_planillas/planilla', 'gestor_planillas\\planillaController');

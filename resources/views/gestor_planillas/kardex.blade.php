@@ -6,14 +6,34 @@
 @section('main-content')
 <div class="container">
     <div class="row">
-        <div class="col-md-14 col-md-offset-0">
+    <!--Comienza path de contenido del curso.
+    -->
+    <div class="col-md-14 col-md-offset-0 borderpath" style="width: 34%;margin-left: 0%;">
+                    <ol class="breadcrumb">
+                    <li><a href="{{ url('/home') }}"><i class="fa fa-dashboard"></i>Gestor Materias</a></li>
+                    <li><a href="{{ url('admin/curso/index_todo/todo')}}"><i class="fa fa-dashboard"></i>Materias</a></li>
+                    <li><a href="#"></i>Contenido del Curso</a></li>
+                    </ol>
+        </div>
+    <!--Termina path de las Listas de contenido del curso.
+    -->
+        <div class="col-md-14 col-md-offset-0" style="padding-top:50px;">
             <div class="panel panel-default">
                 <div class="panel-heading">GESTOR PLANILLA</div>
                   <div class="panel-body">
 
     <div class="container">
     <div class="row">
-   
+   <!--Comienza path de kardex.
+    -->
+    <div class="col-md-14 col-md-offset-0 borderpath" style="width: 27%;margin-left: 0%;">
+                    <ol class="breadcrumb">
+                    <li><a href="{{ url('admin/curso_dicta/'.$id_curso.'/vista_contenido_curso') }}"><i class="fa fa-dashboard"></i>Principal</a></li>
+                    <li><a href="#"></i>Kardex</a></li>
+                    </ol>
+        </div>
+    <!--Termina path de kardex.
+    -->
 
     
      {{-- */$id_user=Auth::id();;/* --}}
@@ -24,7 +44,7 @@
           $name_materia=$materia->nombre;
 
              /* --}}
-    <h3> Kardex <a href="#"></a></h3>
+    <h3 style="padding-top:20px;"> Kardex <a href="#"></a></h3>
     <h4> Estudiante: {{ $nombre }} {{ $apellido }}<a href="#"></a></h4>
     <h4> Materia: {{ $name_materia }} <a href="#"></a></h4>
     <div class="table">
@@ -61,10 +81,16 @@
                    else $notas_est[$i]=0;
                 }
                 $cant=count($examenes);
-                $NotaFinal=$calif/$cant;
 
+                if($cant > 0){
+
+                 $NotaFinal=$calif/$cant;
 
                  $NFin=round($NotaFinal, 0, PHP_ROUND_HALF_UP);
+                }else{
+                $NFin=0;
+                }
+             
 
                 /* --}}          
 
