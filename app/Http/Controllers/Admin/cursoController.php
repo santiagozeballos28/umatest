@@ -46,10 +46,15 @@ class cursoController extends Controller
 
              $docentes= DB::table('role_user')
             ->where('role_id', 2)
-         ->join('users', 'users.id', '=', 'role_user.user_id')
-            
-            //->select('users.id AS user_id','users.name')->get();
+            ->join('users', 'users.id', '=', 'role_user.user_id')
+            //->select('users.id AS user_id','users.name','users.apellido')->get();
             ->lists('users.name','users.id AS user_id');
+
+           //   $apellidos= DB::table('role_user')
+          //  ->where('role_id', 2)
+          //  ->join('users', 'users.id', '=', 'role_user.user_id')
+          //  //->select('users.id AS user_id','users.name','users.apellido')->get();
+          //  ->lists('users.apellido','users.id AS user_id');
 
         return view('admin.curso.create', compact('vector','docentes'));
     }
@@ -61,7 +66,7 @@ class cursoController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, ['nombre' => 'required|max:255', 'capacidad' => 'required|numeric|between:10,999', 'codigo' => 'required|max:255|unique:cursos']);
+        $this->validate($request, ['nombre' => 'required|max:255', 'grupo' => 'required|max:10','capacidad' => 'required|numeric|between:10,999', 'codigo' => 'required|max:255|unique:cursos']);
 
           //verifica si ya existe el curso creado
 
@@ -72,7 +77,9 @@ class cursoController extends Controller
             //$objeto = curso::create($request->all());
 
            DB::table('cursos')->insert(
-            ['nombre' => $request->input('nombre'),'descripcion' => $request->input('descripcion'),
+            ['nombre' => $request->input('nombre').' Grupo: '. $request->input('grupo'),
+            'grupo' => $request->input('grupo'),
+            'descripcion' => $request->input('descripcion'),
             'capacidad' => $request->input('capacidad')
               ,'codigo' => $request->input('codigo')
               ,'id_categoria' => $request->input('id_categoria')
@@ -87,6 +94,9 @@ class cursoController extends Controller
             $id_curso = DB::table('cursos')->where('codigo', $request->input('codigo'))->first();
             $id_curso=$id_curso->id;
 
+
+            
+
             $id_user=$request->input('user_id');
             
             if ($id_user==null) {
@@ -100,7 +110,8 @@ class cursoController extends Controller
             ); 
             
                //store procedure
-            $nombre_cur = $request->input('nombre');
+            //$nombre_cur = $request->input('nombre');
+            $nombre_cur= $request->input('nombre').' Grupo: '. $request->input('grupo');
             $capacidad = $request->input('capacidad');
             $codigo = $request->input('codigo');
             $fecha_vencimiento = $request->input('fecha_vencimiento');

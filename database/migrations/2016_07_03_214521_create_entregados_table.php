@@ -26,6 +26,7 @@ class CreateEntregadosTable extends Migration
             $table->increments('id');
             $table->string('descripcion_tarea')->nullable();
             $table->string('archivo')->nullable();
+              $table->string('path_archivo')->nullable();
             $table->dateTime('fecha');
             $table->integer('puntaje')->nullable();
             $table->timestamps();

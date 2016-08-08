@@ -76,6 +76,7 @@ class curso_dictaController extends Controller
             ->join('cursos', 'cursos.id', '=', 'curso_dictas.curso_id')
             ->join('users', 'users.id', '=', 'curso_dictas.user_id')
             ->join('categorias', 'categorias.id', '=', 'cursos.id_categoria')
+            ->where('estado_curso',1)
             ->select('cursos.id','categorias.nombre AS carrera','cursos.nombre','users.name','users.apellido','cursos.capacidad','cursos.codigo')
             ->get();
 

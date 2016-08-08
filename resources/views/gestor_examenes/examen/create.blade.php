@@ -37,6 +37,14 @@
     -->
     <h1 style="padding-top: 20px;">Crear Nuevo Examen</h1>
     <hr/>
+    {{-- */$id_user=Auth::id();   
+             /* --}}
+             {{-- */$id_rol=DB::table('role_user')->where('user_id', $id_user)->first();
+                   $id_rol=$id_rol->role_id;    
+             /* --}}
+             {{-- */$name_rol=DB::table('roles')->where('id', $id_rol)->first();
+                    $name_rol=$name_rol->nombre_rol;
+             /* --}}
 
     {!! Form::open(['url' => '/gestor_examenes/examen', 'class' => 'form-horizontal']) !!}
 
@@ -55,6 +63,12 @@
                     {!! $errors->first('puntaje_totalm', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
+
+
+
+    
+
+
 
            <div class="form-group {{ $errors->has('id_curso') ? 'has-error' : ''}}">
                 

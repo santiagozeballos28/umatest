@@ -51,6 +51,19 @@
                     {!! $errors->first('nombre', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
+
+
+            <div class="form-group {{ $errors->has('grupo') ? 'has-error' : ''}}">
+                {!! Form::label('grupo','Grupo', ['class' => 'col-sm-3 control-label']) !!}
+                <div class="col-sm-6">
+                    {!! Form::number('grupo', null, ['class' => 'form-control', 'required' => 'required']) !!}
+                    {!! $errors->first('grupo', '<p class="help-block">:message</p>') !!}
+                </div>
+            </div>
+
+
+
+
             <div class="form-group {{ $errors->has('descripcion') ? 'has-error' : ''}}">
                 {!! Form::label('descripcion', 'Descripcion del Curso', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
@@ -94,7 +107,10 @@
 
 
 
+
+
 @if($name_rol=='administrador') 
+
              <div class="form-group {{ $errors->has('id_categoria') ? 'has-error' : ''}}">
                 {!! Form::label('user_id', 'Docente', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">

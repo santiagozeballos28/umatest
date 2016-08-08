@@ -465,7 +465,7 @@ NOta tareas recividos
 * parametro1@ tipo de evento(crear tarea/ Mis tareas)
 * url('gestor_examenes/'.$id_curso.'/tareas/recibidos') 
 */
-Route::get('gestor_examenes/{id_curso}/tareas/recibidos/estudiantes','gestor_examenes\\entregadoController@index');
+Route::get('gestor_examenes/{id_curso}/tareas/recibidos/estudiantes','gestor_examenes\\entregadoController@listar');
 
 
 

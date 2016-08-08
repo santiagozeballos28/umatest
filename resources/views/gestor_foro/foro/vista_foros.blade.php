@@ -104,7 +104,7 @@
                    
                           {{-- */$id_user_actual=Auth::id(); /* --}}
 
-                   @if($item->id_user==$id_user_actual)
+                   @if($item->id_user==$id_user_actual || $id_user_actual==1)
                     <td bgcolor="#F5D0A9">
                         <!--a href="{{ url('/foro/' . $item->id_foro) }}" class="btn btn-success btn-xs" title="Ver Foro"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"/></a-->
                         <!--a href="{{ url('/foro/' . $item->id_foro . '/edit') }}" class="btn btn-primary btn-xs" title="Editar Foro"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a-->
@@ -114,7 +114,7 @@
 
                     </td>
                     @else
-                    <td bgcolor="#b0e0e6">
+                    <td bgcolor="#F5D0A9">
                     </td>
                     @endif
 

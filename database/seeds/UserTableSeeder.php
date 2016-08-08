@@ -18,7 +18,7 @@ class UserTableSeeder extends Seeder
             'telefono' => '60000000',
             'genero' => 'm',
             'email' => 'admin@umss.edu',
-            'password' => bcrypt('administrador')
+            'password' => bcrypt('EmQ=GiED42T')
             ]);
 
 
@@ -29,7 +29,7 @@ class UserTableSeeder extends Seeder
             'telefono' => '70000000',
             'genero' => 'f',
             'email' => 'akirebilbao@gmail.com',
-            'password' => bcrypt('patricia')
+            'password' => bcrypt('EmQ=2do,rnte')
             ]);
 
          factory(App\User::class)->create([

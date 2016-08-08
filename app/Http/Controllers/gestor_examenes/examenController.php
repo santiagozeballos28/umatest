@@ -97,7 +97,24 @@ class examenController extends Controller
 
          $id_curso=$request->input('id_curso');
          $fecha_actual = date("Y-m-d");
+
+
+        $usuario= DB::table('curso_dictas')
+            ->where('curso_id', $id_curso)
+            //->join('users', 'users.id', '=', 'foros.id_user')
+            ->first();
+   
+
          
+          $id_user=$usuario->user_id;
+            //$id_user=$usuario;
+          //  if ($id_user==null) {
+          //    $id_user=Auth::id();
+          //  }
+            
+
+
+
          DB::table('examens')->insert(['nombre_examen' => $request->input('nombre_examen'), 'estado_examen' => 1,
           'fecha_examen' => $fecha_actual,'puntaje_totalm' => $request->input('puntaje_totalm'),'id_cursos'=> $request->input('id_curso')]
          );
@@ -113,8 +130,8 @@ class examenController extends Controller
             $nombre_tabla="examenes";//4
             $fecha_a = date("Y-m-d H:i:s");//5
             $accion_a='create';//6
-            $id_user=Auth::id();
-            $usuario= DB::table('users')->where('id', $id_user)->first();
+           // $id_user=Auth::id();
+            $usuario= DB::table('users')->where('id', Auth::id())->first();
             $nombre_usuario = $usuario->name.' '.$usuario->apellido;//7
             $id_bi=0;//8
 
@@ -261,7 +278,17 @@ class examenController extends Controller
     public function crear_examen($id_curso)
     {
 
-      return view('gestor_examenes.examen.create', compact('id_curso'));
+      $docentes= DB::table('role_user')
+            ->where('role_id', 2)
+            ->join('users', 'users.id', '=', 'role_user.user_id')
+            //->select('users.id AS user_id','users.name','users.apellido')->get();
+            ->lists('users.name','users.id AS user_id');
+
+
+
+
+
+      return view('gestor_examenes.examen.create', compact('id_curso','docentes'));
 
     }
 

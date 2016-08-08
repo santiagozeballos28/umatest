@@ -32,20 +32,24 @@ class entregadoController extends Controller
 
         return view('gestor_examenes.entregado.index', compact('entregado'));
     }
-     public function listar()
+     public function listar($id_curso)
     {
-          $foro= DB::table('foros')
-            ->where('id_curso', $id_curso)
-            ->join('users', 'users.id', '=', 'foros.id_user')
+          $entregado= DB::table('tareas')
+            ->where('id_cursos', $id_curso)
+            ->join('enviados', 'enviados.id_tarea', '=', 'tareas.id')
+            ->join('entregados', 'entregados.id_enviado', '=', 'enviados.id')
+            ->join('users', 'users.id', '=', 'entregados.id_user')
             ->orderBy('fecha', 'desc')
-            ->select('foros.id AS id_foro','users.id AS id_user','users.name','users.apellido','foros.titulo','foros.mensaje','foros.archivo','foros.fecha')
+            ->select('users.id AS id_user','users.apellido','users.name','entregados.descripcion_tarea',
+
+                'entregados.archivo','entregados.path_archivo','entregados.fecha')
             ->get();
 
 
 
         
 
-        return view('gestor_examenes.entregado.index', compact('entregado'));
+        return view('gestor_examenes.entregado.vista_entregados', compact('entregado','id_curso'));
     }
  
     /**
@@ -93,13 +97,14 @@ class entregadoController extends Controller
         $id_enviado=$request->input('id');
         $id_user=Auth::Id();
         $fecha_actual = date("Y-m-d H:i:s");
-        $puntaje=5;
+        $puntaje=0;
 
       if (!empty($_FILES)) {
-        $temporalFile=$_FILES['archivo']['tmp_name'];
+          $temporalFile=$_FILES['archivo']['tmp_name'];
         //$path="/xampp/htdocs/git2/public/uploads/";
-        $path=public_path().'/uploads/';
-        $fileName=$path.'-'.Hash::make($_FILES['archivo']['name']);
+       // $path=public_path()."\\".'uploads'."\\";
+         $path='uploads/';
+        $fileName=$path.$_FILES['archivo']['name'];
         $fileType=$_FILES['archivo']['type'];
         $fileSize=($_FILES['archivo']['size']/1024);
         $nombreArchivo=$_FILES['archivo']['name'];
@@ -109,7 +114,7 @@ class entregadoController extends Controller
          if (move_uploaded_file($_FILES['archivo']['tmp_name'],$fichero_subido)) {
 
            DB::table('entregados')->insert(['descripcion_tarea' => $request->input('descripcion'), 
-          'archivo' => $nombreArchivo,'fecha' => $fecha_actual,
+          'archivo' => $nombreArchivo,'path_archivo' => $fileName,'fecha' => $fecha_actual,
           'puntaje' => $puntaje,'id_user'=>$id_user,
           'id_enviado'=> $request->input('id')]
          );

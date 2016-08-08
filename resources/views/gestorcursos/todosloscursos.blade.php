@@ -13,7 +13,7 @@
     <div class="col-md-14 col-md-offset-0 borderpath" style="width: 19%;margin-left: 0%;">
                     <ol class="breadcrumb">
                     <li><a href="{{ url('/home') }}"><i class="fa fa-dashboard"></i>Gestor Materias</a></li>
-                    <li><a href="#"></i>Categorías</a></li>
+                    <li><a href="#"></i>Carreras</a></li>
                     </ol>
         </div>
     <!--Termina path de las Listas de categorías de  las carreras
@@ -48,10 +48,10 @@
 
               }
              /* --}}
-              <h1>CATEGORIAS</h1>
+              <h3>CARRERAS</h3>
               <table class="table table-bordered text-center">
                 <tr>
-                  <th>Categoria</th>
+                  <th>Carrera</th>
                   <th>Cantidad de Materias</th>
                 </tr>
            

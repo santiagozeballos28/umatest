@@ -78,7 +78,14 @@ class comentarioController extends Controller
     {
         $this->validate($request, ['mensaje' => 'required','fecha',]);
 
-        $id_user=Auth::id();
+         $id_curso=$request->input('id_curso');
+         $id_foro=$request->input('id_foro');
+
+         $usuario= DB::table('curso_dictas')
+         ->where('curso_id', $id_curso)
+         ->first();
+     
+        $id_user=$usuario->user_id;
         $fecha_actual = date("Y-m-d H:i:s");
 
          DB::table('comentarios')->insert(['mensaje' => $request->input('mensaje'),'fecha' =>$fecha_actual,
@@ -86,8 +93,7 @@ class comentarioController extends Controller
          );
 
         Session::flash('flash_message', 'comentario added!');
-        $id_curso=$request->input('id_curso');
-         $id_foro=$request->input('id_foro');
+       
 
         //gestor_foros/{id_curso}/crear/{id_foro}/comentario';
         //gestor_foros/{id_curso}/crear/{id_foro}/comentario'

@@ -41,7 +41,7 @@
         <table class="table table-bordered table-striped table-hover">
             <thead>
                 <tr>
-                    <th>S.No</th><th> {{ trans('tarea.nombre_tarea') }} </th><th> {{ trans('tarea.descripcion') }} </th><th> {{ trans('tarea.archivo') }} </th><th>Fecha de creacion</th><th>Enviar Tarea</th><th>Acciones</th>
+                    <th>S.No</th><th> {{ trans('tarea.nombre_tarea') }} </th><th> {{ trans('tarea.descripcion') }} </th><th> {{ trans('tarea.archivo') }} </th><th>Fecha de creacion</th><th>Enviar Tarea</th><th>Tareas Recibidos</th><th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -50,15 +50,22 @@
                 {{-- */$x++;/* --}}
                 <tr>
                     <td>{{ $x }}</td>
-                    <td>{{ $item->nombre_tarea }}</td><td>{{ $item->descripcion }}</td><td>{{ $item->archivo }}</td><td>{{ $item->fecha_creacion }}</td>
+                    <td>{{ $item->nombre_tarea }}</td>
+                    <td>{{ $item->descripcion }}</td>
+                    <td>{{ $item->archivo }}</td>
+                    <td>{{ $item->fecha_creacion }}</td>
                     <td>
-                    <li><a href="{{url('/gestor_examenes/enviar/'.$id_curso.'/'.$item->id.'/create')}}"><i class="fa fa-envelope-o"></i> Enviar Tarea</a></li>
+                    <a href="{{url('/gestor_examenes/enviar/'.$id_curso.'/'.$item->id.'/create')}}"><i class="fa fa-envelope-o"></i> Enviar Tarea</a>
 
                     </td>
                     <td>
-                        <a href="{{ url('/gestor_examenes/tarea/' . $item->id) }}" class="btn btn-success btn-xs" title="Ver Tarea"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"/></a>
+                    <a href="{{ url('gestor_examenes/'.$id_curso.'/tareas/recibidos/estudiantes')}}"><i class="fa fa-envelope-o"></i>Ver Recibidos</a>
 
-                        <a href="{{ url('/gestor_examenes/'.$id_curso.'/enviar/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs" title="Editar Tarea"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a>
+                    </td>
+                    <td>
+                        <!--a href="{{ url('/gestor_examenes/tarea/' . $item->id) }}" class="btn btn-success btn-xs" title="Ver Tarea"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"/></a-->
+
+                        <!--a href="{{ url('/gestor_examenes/'.$id_curso.'/enviar/' . $item->id . '/edit') }}" class="btn btn-primary btn-xs" title="Editar Tarea"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a-->
 
                         <a href="{{ url('/gestor_examenes/'.$id_curso.'/materia/tarea/' . $item->id . '/destroy') }}" class="btn btn-danger btn-xs" title="Eliminar Tarea" onclick='return confirm("Esta seguro de eliminar?")'><span class="glyphicon glyphicon-trash" aria-hidden="true" title="Eliminar Tarea" /></a>
 

@@ -74,7 +74,16 @@ class foroController extends Controller
         $this->validate($request, ['titulo' => 'required', 'mensaje',]);
         $id_curso=$request->input('id_curso');
         $fecha_actual = date("Y-m-d H:i:s");
-        $id_user=Auth::id();
+
+
+         $usuario= DB::table('curso_dictas')
+           ->where('curso_id', $id_curso)
+            //->join('users', 'users.id', '=', 'foros.id_user')
+            ->first();
+   
+     
+          $id_user=$usuario->user_id;
+        //$id_user=Auth::id();
 
       if (!empty($_FILES)) {
         $temporalFile=$_FILES['archivo']['tmp_name'];
